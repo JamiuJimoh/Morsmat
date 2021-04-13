@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "869360034930",
+    "project_id": "morsmat-611d7",
+    "storage_bucket": "morsmat-611d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869360034930:android:aed6646ac3101865d34eeb",
+        "android_client_info": {
+          "package_name": "com.jamiu.morsmat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869360034930-ocq6ake68g62qoeioq3t90m5up3q8qrb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jamiu.morsmat",
+            "certificate_hash": "a4bc5ae67ed8d692c767c0c588fed26b7ea636f4"
+          }
+        },
+        {
+          "client_id": "869360034930-il7cs259nr46rer774766s4kte2477l7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYu9flg07P8eTl0WFDHZs8-FHgCFRqw0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869360034930-il7cs259nr46rer774766s4kte2477l7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

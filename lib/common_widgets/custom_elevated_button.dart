@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final Color? buttonColor;
+  final double borderRadius;
   final Widget? child;
+  final double height;
+  final VoidCallback? onPressed;
+  final double? width;
 
   const CustomElevatedButton({
+    this.buttonColor,
+    this.borderRadius: 5.0,
+    required this.child,
+    this.height: 40.0,
     this.onPressed,
-    this.child,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      height: height,
+      width: width,
       child: ElevatedButton(
-        onPressed: () {},
-        child: Text('Hey'),
-        style: ElevatedButton.styleFrom(),
+        onPressed: onPressed,
+        child: child,
+        style: ElevatedButton.styleFrom(
+          primary: buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(borderRadius),
+            ),
+          ),
+        ),
       ),
     );
   }
