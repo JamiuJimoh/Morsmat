@@ -1,46 +1,83 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
-import 'email_sign_in_form.dart';
+import 'sign_in_bloc.dart';
+import 'email_sign_in_form_stateful.dart';
 import 'social_sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
-  final AuthBase auth;
+  final SignInBloc bloc;
+  const SignInPage({required this.bloc});
 
-  const SignInPage({required this.auth});
+  static Widget create(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    return Provider<SignInBloc>(
+      create: (_) => SignInBloc(auth: auth),
+      dispose: (_, bloc) => bloc.dispose(),
+      child: Consumer<SignInBloc>(
+        builder: (_, bloc, __) => SignInPage(bloc: bloc),
+      ),
+    );
+  }
+
+  ///////// HELPER METHODS ///////////
+
+  void _showSignInError(BuildContext context, Exception exception) {
+    if (exception is FirebaseException &&
+        exception.code == 'ERROR_ABORTED_BY_USER') {
+      return;
+    }
+    showExceptionAlertDialog(
+      context,
+      title: 'Sign in failed',
+      exception: exception,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildContent(),
+      body: StreamBuilder<bool>(
+          initialData: false,
+          stream: bloc.isLoadingStream,
+          builder: (context, snapshot) {
+            return _buildContent(context, snapshot.data!);
+          }),
     );
   }
 
-  Future<void> _signInAnonymously() async {
+  //////////// SERVICES METHODS //////////
+
+  Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      await auth.signInAnonymously();
-    } catch (e) {
-      print(e.toString());
+      await bloc.signInAnonymously();
+    } on Exception catch (e) {
+      _showSignInError(context, e);
     }
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      await auth.signInWithGoogle();
-    } catch (e) {
-      print(e.toString());
+      await bloc.signInWithGoogle();
+    } on Exception catch (e) {
+      _showSignInError(context, e);
     }
   }
 
-  Future<void> _signInWithFacebook() async {
+  Future<void> _signInWithFacebook(BuildContext context) async {
     try {
-      await auth.signInWithFacebook();
-    } catch (e) {
-      print(e.toString());
+      await bloc.signInWithFacebook();
+    } on Exception catch (e) {
+      _showSignInError(context, e);
     }
   }
 
-  Widget _buildContent() {
+  ///////// WIDGETS METHODS ////////
+
+  Widget _buildContent(BuildContext context, bool isLoading) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Center(
@@ -55,9 +92,9 @@ class SignInPage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildHeader(),
+                  SizedBox(height: 90.0, child: _buildHeader(isLoading)),
                   const SizedBox(height: 15.0),
-                  EmailSignInForm(auth: auth),
+                  EmailSignInFormStateful(),
                   const SizedBox(height: 35.0),
                   Text(
                     'OR',
@@ -72,16 +109,16 @@ class SignInPage extends StatelessWidget {
                     children: [
                       SocialSignInButton(
                         assetName: 'assets/images/google-logo.png',
-                        onPressed: _signInWithGoogle,
+                        onPressed: () => _signInWithGoogle(context),
                       ),
                       // const SizedBox(width: 45.0),
                       SocialSignInButton(
                         assetName: 'assets/images/facebook-logo.png',
-                        onPressed: _signInAnonymously,
+                        onPressed: () => _signInAnonymously(context),
                       ),
                       SocialSignInButton(
                         assetName: 'assets/images/facebook-logo-blue.png',
-                        onPressed: _signInWithFacebook,
+                        onPressed: () => _signInWithFacebook(context),
                       ),
                     ],
                   ),
@@ -94,15 +131,15 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
-    return SizedBox(
-      height: 90.0,
-      child: Text(
-        'Sign In',
-        style: TextStyle(
-          fontSize: 25.0,
-          fontWeight: FontWeight.w700,
-        ),
+  Widget _buildHeader(bool isLoading) {
+    if (isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Text(
+      'Sign In',
+      style: TextStyle(
+        fontSize: 25.0,
+        fontWeight: FontWeight.w700,
       ),
     );
   }

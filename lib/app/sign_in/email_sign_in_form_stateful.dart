@@ -1,22 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/app/landing_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
+import '../../common_widgets/show_exception_alert_dialog.dart';
+import '../landing_page.dart';
+import 'email_sign_in_model.dart';
 import 'form_submit_button.dart';
 import 'toggle_sign_in_form_button.dart';
 import 'validators.dart';
 
-enum EmailSignInFormType { signIn, register }
-
-class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators {
-  final AuthBase auth;
-  EmailSignInForm({required this.auth});
-
+class EmailSignInFormStateful extends StatefulWidget
+    with EmailAndPasswordValidators {
   @override
   _EmailSignInFormState createState() => _EmailSignInFormState();
 }
 
-class _EmailSignInFormState extends State<EmailSignInForm> {
+class _EmailSignInFormState extends State<EmailSignInFormStateful> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -27,6 +27,13 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   bool _submitted = false;
   bool _isLoading = false;
 
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
   //////// SERVICES METHODS ///////////
   Future<void> _submit() async {
     setState(() {
@@ -34,15 +41,22 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       _isLoading = true;
     });
     try {
+      final auth = Provider.of<AuthBase>(context, listen: false);
       if (_formType == EmailSignInFormType.signIn) {
-        await widget.auth.signInWithEmailAndPassword(_email, _password);
+        await auth.signInWithEmailAndPassword(_email, _password);
       } else {
-        await widget.auth.createUserWithEmailAndPassword(_email, _password);
+        await auth.createUserWithEmailAndPassword(_email, _password);
       }
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => LandingPage(auth: widget.auth)));
-    } catch (e) {
-      print(e.toString());
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => LandingPage()));
+    } on FirebaseAuthException catch (e) {
+      // TODO: test ios widget
+
+      showExceptionAlertDialog(
+        context,
+        title: 'Sign in failed',
+        exception: e,
+      );
     } finally {
       setState(() {
         _isLoading = false;
