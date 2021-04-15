@@ -1,6 +1,8 @@
+import 'validators.dart';
+
 enum EmailSignInFormType { signIn, register }
 
-class EmailSignInModel {
+class EmailSignInModel with EmailAndPasswordValidators {
   final String email;
   final String password;
   final EmailSignInFormType formType;
@@ -14,6 +16,28 @@ class EmailSignInModel {
     this.isLoading: false,
     this.submitted: false,
   });
+
+  String get authButtonText {
+    return formType == EmailSignInFormType.signIn
+        ? 'Sign In'
+        : 'Create an account';
+  }
+
+  bool get canSubmit {
+    return emailValidator.isValid(email) &&
+        passwordValidator.isValid(password) &&
+        !isLoading;
+  }
+
+  String? get passwordErrorText {
+    var showErrorText = submitted && !passwordValidator.isValid(password);
+    return showErrorText ? invalidPasswordErrorText : null;
+  }
+
+  String? get emailErrorText {
+    var showErrorText = submitted && !emailValidator.isValid(email);
+    return showErrorText ? invalidEmailErrorText : null;
+  }
 
   EmailSignInModel copyWith({
     String? email,

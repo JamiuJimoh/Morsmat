@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 import 'sign_in_bloc.dart';
-import 'email_sign_in_form_stateful.dart';
+import 'email_sign_in_form_bloc_based.dart';
 import 'social_sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
@@ -94,7 +94,7 @@ class SignInPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 90.0, child: _buildHeader(isLoading)),
                   const SizedBox(height: 15.0),
-                  EmailSignInFormStateful(),
+                  EmailSignInFormBlocBased.create(context),
                   const SizedBox(height: 35.0),
                   Text(
                     'OR',
