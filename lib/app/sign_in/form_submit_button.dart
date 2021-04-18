@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morsmat/constants.dart';
 
 import '../../common_widgets/custom_elevated_button.dart';
 
@@ -7,6 +8,7 @@ class FormSubmitButton extends CustomElevatedButton {
     required String text,
     VoidCallback? onPressed,
   }) : super(
+          buttonColor: kAccentColor,
           child: Text(
             text,
             style: TextStyle(

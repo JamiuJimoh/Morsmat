@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:morsmat/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
@@ -111,7 +112,7 @@ class _EmailSignInFormChangeNotifierState
         ToggleSignInFormButton(
           text: 'Log In',
           buttonColor: model.formType == EmailSignInFormType.signIn
-              ? null
+              ? kAccentColor
               : Colors.grey[400],
           onPressed: !model.isLoading
               ? () => _toggleAuthButton(EmailSignInFormType.signIn)
@@ -121,7 +122,7 @@ class _EmailSignInFormChangeNotifierState
         ToggleSignInFormButton(
           text: 'Sign Up',
           buttonColor: model.formType == EmailSignInFormType.register
-              ? null
+              ? kAccentColor
               : Colors.grey[400],
           onPressed: !model.isLoading
               ? () => _toggleAuthButton(EmailSignInFormType.register)

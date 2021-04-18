@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:morsmat/app_theme_data.dart';
 import 'package:provider/provider.dart';
 
 import 'services/auth.dart';
@@ -15,12 +16,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<AuthBase>(
-      create: (context)=>Auth(),
+      create: (context) => Auth(),
       child: MaterialApp(
         title: 'Morsmat',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
+        theme: AppTheme.primaryAppTheme,
         home: LandingPage(),
       ),
     );

@@ -32,12 +32,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('HomePage'),
+        elevation: 0.0,
         actions: [
           TextButton(
             child: Text(
               'Logout',
               style: TextStyle(
-                color: Colors.white,
+                // color: Colors.white,
                 fontSize: 18.0,
               ),
             ),

@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/app/sign_in/email_sign_in_form_change_notifier.dart';
+import 'package:morsmat/app/sign_in/email_sign_change_model.dart';
+import 'package:morsmat/app/sign_in/email_sign_in_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants.dart';
+import 'email_sign_in_form_change_notifier.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 import 'sign_in_manager.dart';
-import 'email_sign_in_form_bloc_based.dart';
 import 'social_sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
@@ -55,13 +57,13 @@ class SignInPage extends StatelessWidget {
 
   //////////// SERVICES METHODS //////////
 
-  Future<void> _signInAnonymously(BuildContext context) async {
-    try {
-      await manager.signInAnonymously();
-    } on Exception catch (e) {
-      _showSignInError(context, e);
-    }
-  }
+  // Future<void> _signInAnonymously(BuildContext context) async {
+  //   try {
+  //     await manager.signInAnonymously();
+  //   } on Exception catch (e) {
+  //     _showSignInError(context, e);
+  //   }
+  // }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
@@ -96,35 +98,37 @@ class SignInPage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 90.0, child: _buildHeader()),
+                  // SizedBox(height: 90.0, child: _buildHeader()),
                   const SizedBox(height: 15.0),
                   EmailSignInFormChangeNotifier.create(context),
                   const SizedBox(height: 35.0),
                   Text(
                     'OR',
                     style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 25.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SocialSignInButton(
-                        assetName: 'assets/images/google-logo.png',
-                        onPressed: () => _signInWithGoogle(context),
-                      ),
-                      // const SizedBox(width: 45.0),
-                      SocialSignInButton(
-                        assetName: 'assets/images/facebook-logo.png',
-                        onPressed: () => _signInAnonymously(context),
-                      ),
-                      SocialSignInButton(
-                        assetName: 'assets/images/facebook-logo-blue.png',
-                        onPressed: () => _signInWithFacebook(context),
-                      ),
-                    ],
+                  SocialSignInButton(
+                    assetName: 'assets/images/google-logo.png',
+                    text: 'Sign in with Google',
+                    textColor: kPrimaryColor,
+                    buttonColor: kWhiteColor,
+                    onPressed: () => _signInWithGoogle(context),
+                  ),
+                  const SizedBox(height: 25.0),
+                  // SocialSignInButton(
+                  //   assetName: 'assets/images/facebook-logo.png',
+                  //   onPressed: () => _signInAnonymously(context),
+                  // ),
+                  // const SizedBox(height: 25.0),
+                  SocialSignInButton(
+                    assetName: 'assets/images/facebook-logo.png',
+                    text: 'Sign in with Facebook',
+                    textColor: kScaffoldColor,
+                    buttonColor: kFacebookColor,
+                    onPressed: () => _signInWithFacebook(context),
                   ),
                 ],
               ),
