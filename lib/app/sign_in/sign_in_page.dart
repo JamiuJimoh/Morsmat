@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/app/sign_in/email_sign_change_model.dart';
-import 'package:morsmat/app/sign_in/email_sign_in_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -51,6 +49,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kAccentColor,
       body: _buildContent(context),
     );
   }
@@ -84,54 +83,75 @@ class SignInPage extends StatelessWidget {
   ///////// WIDGETS METHODS ////////
 
   Widget _buildContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Center(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // SizedBox(height: 90.0, child: _buildHeader()),
-                  const SizedBox(height: 15.0),
-                  EmailSignInFormChangeNotifier.create(context),
-                  const SizedBox(height: 35.0),
-                  Text(
-                    'OR',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w600,
+    return LayoutBuilder(
+      builder: (_, constraint) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraint.maxHeight),
+          child: IntrinsicHeight(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildHeader(),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 25.0),
-                  SocialSignInButton(
-                    assetName: 'assets/images/google-logo.png',
-                    text: 'Sign in with Google',
-                    textColor: kPrimaryColor,
-                    buttonColor: kWhiteColor,
-                    onPressed: () => _signInWithGoogle(context),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: kScaffoldColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50.0),
+                      topRight: Radius.circular(50.0),
+                    ),
                   ),
-                  const SizedBox(height: 25.0),
-                  // SocialSignInButton(
-                  //   assetName: 'assets/images/facebook-logo.png',
-                  //   onPressed: () => _signInAnonymously(context),
-                  // ),
-                  // const SizedBox(height: 25.0),
-                  SocialSignInButton(
-                    assetName: 'assets/images/facebook-logo.png',
-                    text: 'Sign in with Facebook',
-                    textColor: kScaffoldColor,
-                    buttonColor: kFacebookColor,
-                    onPressed: () => _signInWithFacebook(context),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 50.0, top: 30.0, left: 25.0, right: 25.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // SizedBox(height: 90.0, child: _buildHeader()),
+                        const SizedBox(height: 15.0),
+                        EmailSignInFormChangeNotifier.create(context),
+
+                        const SizedBox(height: 35.0),
+                        Text(
+                          'OR',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 25.0),
+                        SocialSignInButton(
+                          assetName: 'assets/images/google-logo.png',
+                          text: 'Sign in with Google',
+                          textColor: kPrimaryColor,
+                          buttonColor: kWhiteColor,
+                          onPressed: () => _signInWithGoogle(context),
+                        ),
+                        const SizedBox(height: 25.0),
+                        // SocialSignInButton(
+                        //   assetName: 'assets/images/facebook-logo.png',
+                        //   onPressed: () => _signInAnonymously(context),
+                        // ),
+                        // const SizedBox(height: 25.0),
+                        SocialSignInButton(
+                          assetName: 'assets/images/facebook-logo.png',
+                          text: 'Sign in with Facebook',
+                          textColor: kScaffoldColor,
+                          buttonColor: kFacebookColor,
+                          onPressed: () => _signInWithFacebook(context),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -140,14 +160,23 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildHeader() {
+    // EmailSignInFormType.re
     if (isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: kScaffoldColor,
+        ),
+      );
     }
-    return Text(
-      'Sign In',
-      style: TextStyle(
-        fontSize: 25.0,
-        fontWeight: FontWeight.w700,
+    return Padding(
+      padding: const EdgeInsets.only(top: 40.0),
+      child: Text(
+        'Welcome back',
+        style: TextStyle(
+          fontSize: 27.0,
+          color: kScaffoldColor,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

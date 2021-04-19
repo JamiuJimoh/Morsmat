@@ -7,6 +7,7 @@ import '../../services/auth.dart';
 class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   String email;
   String password;
+  String confirmPassword;
   EmailSignInFormType formType;
   bool isLoading;
   bool submitted;
@@ -15,6 +16,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailSignInChangeModel({
     this.email: '',
     this.password: '',
+    this.confirmPassword: '',
     this.formType: EmailSignInFormType.signIn,
     this.isLoading: false,
     this.submitted: false,
@@ -46,14 +48,19 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   bool get canSubmit {
-    return emailValidator.isValid(email) &&
-        passwordValidator.isValid(password) &&
-        !isLoading;
-  }
-
-  String? get passwordErrorText {
-    var showErrorText = submitted && !passwordValidator.isValid(password);
-    return showErrorText ? invalidPasswordErrorText : null;
+    if (formType == EmailSignInFormType.signIn) {
+      return emailValidator.isValid(email) &&
+          passwordValidator.isValid(password) &&
+          !isLoading;
+    } else {
+      return emailValidator.isValid(email) &&
+          passwordValidator.isValid(password) &&
+          confirmPasswordValidator.confirmPasswordMatch(
+            password,
+            confirmPassword,
+          ) &&
+          !isLoading;
+    }
   }
 
   String? get emailErrorText {
@@ -61,10 +68,25 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? invalidEmailErrorText : null;
   }
 
+  String? get passwordErrorText {
+    var showErrorText = submitted && !passwordValidator.isValid(password);
+    return showErrorText ? invalidPasswordErrorText : null;
+  }
+
+  String? get confirmPasswordErrorText {
+    var showErrorText = submitted &&
+        !confirmPasswordValidator.confirmPasswordMatch(
+          password,
+          confirmPassword,
+        );
+    return showErrorText ? invalidConfirmPasswordErrorText : null;
+  }
+
   void toggleAuthButton(EmailSignInFormType formType) {
     updateWith(
       email: '',
       password: '',
+      confirmPassword: '',
       formType: formType,
       isLoading: false,
       submitted: false,
@@ -75,15 +97,20 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
 
   void updatePassword(String password) => updateWith(password: password);
 
+  void updateConfirmPassword(String confirmPassword) =>
+      updateWith(confirmPassword: confirmPassword);
+
   void updateWith({
     String? email,
     String? password,
+    String? confirmPassword,
     EmailSignInFormType? formType,
     bool? isLoading,
     bool? submitted,
   }) {
     this.email = email ?? this.email;
     this.password = password ?? this.password;
+    this.confirmPassword = confirmPassword ?? this.confirmPassword;
     this.formType = formType ?? this.formType;
     this.isLoading = isLoading ?? this.isLoading;
     this.submitted = submitted ?? this.submitted;

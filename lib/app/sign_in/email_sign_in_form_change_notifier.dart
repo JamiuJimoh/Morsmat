@@ -34,6 +34,7 @@ class _EmailSignInFormChangeNotifierState
     extends State<EmailSignInFormChangeNotifier> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   EmailSignInChangeModel get model => widget.model;
 
@@ -69,6 +70,7 @@ class _EmailSignInFormChangeNotifierState
 
     _emailController.clear();
     _passwordController.clear();
+    _confirmPasswordController.clear();
   }
 
   //////// WIDGETS METHODS ///////////
@@ -78,6 +80,13 @@ class _EmailSignInFormChangeNotifierState
       autocorrect: false,
       controller: _emailController,
       decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+        ),
         hintText: 'john@doe.com',
         labelText: 'Email',
         errorText: model.emailErrorText,
@@ -93,12 +102,45 @@ class _EmailSignInFormChangeNotifierState
     return TextFormField(
       controller: _passwordController,
       decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+        ),
         labelText: 'Password',
         errorText: model.passwordErrorText,
         enabled: model.isLoading == false,
       ),
       keyboardType: TextInputType.visiblePassword,
       onChanged: model.updatePassword,
+      obscureText: true,
+      textInputAction: model.formType == EmailSignInFormType.signIn
+          ? TextInputAction.done
+          : TextInputAction.next,
+      onEditingComplete:
+          model.formType == EmailSignInFormType.signIn ? _submit : null,
+    );
+  }
+
+  TextFormField _buildConfirmPasswordTextFormField() {
+    return TextFormField(
+      controller: _confirmPasswordController,
+      decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+        ),
+        labelText: 'Confirm Password',
+        errorText: model.confirmPasswordErrorText,
+        enabled: model.isLoading == false,
+      ),
+      keyboardType: TextInputType.visiblePassword,
+      onChanged: model.updateConfirmPassword,
       obscureText: true,
       textInputAction: TextInputAction.done,
       onEditingComplete: _submit,
@@ -139,6 +181,9 @@ class _EmailSignInFormChangeNotifierState
       _buildEmailTextFormField(),
       const SizedBox(height: 10.0),
       _buildPasswordTextFormField(),
+      const SizedBox(height: 10.0),
+      if (model.formType == EmailSignInFormType.register)
+        _buildConfirmPasswordTextFormField(),
       const SizedBox(height: 25.0),
       FormSubmitButton(
         text: model.authButtonText,
