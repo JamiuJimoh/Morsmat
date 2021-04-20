@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:morsmat/constants.dart';
 
 class SliderTile extends StatelessWidget {
   final String imageString;
@@ -25,7 +24,7 @@ class SliderTile extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(29.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
