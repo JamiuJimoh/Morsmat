@@ -25,7 +25,7 @@ class SliderTile extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(29.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -47,7 +47,7 @@ class SliderTile extends StatelessWidget {
                   child: Text(
                     desc,
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 17.0,
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
