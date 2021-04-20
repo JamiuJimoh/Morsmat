@@ -7,6 +7,8 @@ import 'home_page.dart';
 import 'sign_in/sign_in_page.dart';
 
 class LandingPage extends StatelessWidget {
+  static const String id = 'landing_page';
+
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);

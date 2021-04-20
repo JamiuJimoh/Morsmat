@@ -5,6 +5,8 @@ import '../common_widgets/show_alert_dialog.dart';
 import '../services/auth.dart';
 
 class HomePage extends StatelessWidget {
+  static const String id = 'home_page';
+
   Future<void> _signOut(BuildContext context) async {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);

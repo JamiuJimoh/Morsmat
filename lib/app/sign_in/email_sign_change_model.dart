@@ -91,6 +91,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
       isLoading: false,
       submitted: false,
     );
+    notifyListeners();
   }
 
   void updateEmail(String email) => updateWith(email: email);
