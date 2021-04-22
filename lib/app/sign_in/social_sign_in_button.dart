@@ -4,9 +4,9 @@ import '../../common_widgets/custom_elevated_button.dart';
 
 class SocialSignInButton extends CustomElevatedButton {
   SocialSignInButton({
-    required String  assetName,
-    required String  text,
-    required Color textColor,
+    required String assetName,
+    required String text,
+    TextStyle? textStyle,
     Color? buttonColor,
     required onPressed,
   }) : super(
@@ -17,10 +17,7 @@ class SocialSignInButton extends CustomElevatedButton {
               Image.asset(assetName),
               Text(
                 text,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 15.0,
-                ),
+                style: textStyle,
               ),
               Opacity(opacity: 0.0, child: Image.asset(assetName)),
             ],

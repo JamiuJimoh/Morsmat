@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../common_widgets/custom_container.dart';
-import '../../constants.dart';
 
 class CategoriesContainer extends CustomContainer {
-  CategoriesContainer()
+  CategoriesContainer({required BuildContext context})
       : super(
           height: 90.0,
           width: 90.0,
           child: Container(),
-          // containerColor: kScaffoldColor,
-          // borderColor: kAccentColor,
+          borderColor: Theme.of(context).colorScheme.secondary,
+          containerColor:Theme.of(context).colorScheme.primary
         );
 }

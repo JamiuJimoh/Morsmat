@@ -107,20 +107,22 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ToggleSignInFormButton(
+          context: context,
           text: 'Log In',
           buttonColor: model.formType == EmailSignInFormType.signIn
               ? null
-              : Colors.grey[400],
+              : Theme.of(context).colorScheme.onSecondary,
           onPressed: !model.isLoading
               ? () => _toggleAuthButton(EmailSignInFormType.signIn)
               : null,
         ),
         const SizedBox(width: 15.0),
         ToggleSignInFormButton(
+          context: context,
           text: 'Sign Up',
           buttonColor: model.formType == EmailSignInFormType.register
               ? null
-              : Colors.grey[400],
+              : Theme.of(context).colorScheme.onSecondary,
           onPressed: !model.isLoading
               ? () => _toggleAuthButton(EmailSignInFormType.register)
               : null,
@@ -138,6 +140,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       _buildPasswordTextFormField(model),
       const SizedBox(height: 25.0),
       FormSubmitButton(
+        context: context,
         text: model.authButtonText,
         onPressed: model.canSubmit ? _submit : null,
       ),

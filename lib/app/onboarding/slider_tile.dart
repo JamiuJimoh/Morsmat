@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:morsmat/constants.dart';
 
 class SliderTile extends StatelessWidget {
   final String imageString;
