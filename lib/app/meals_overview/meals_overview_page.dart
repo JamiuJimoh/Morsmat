@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:morsmat/app/meals_overview/categories_container.dart';
 import 'package:provider/provider.dart';
 
+import 'categories_container.dart';
 import '../../common_widgets/show_alert_dialog.dart';
 import '../../services/auth.dart';
 
@@ -38,10 +38,7 @@ class MealsOverviewPage extends StatelessWidget {
           TextButton(
             child: Text(
               'Logout',
-              style: TextStyle(
-                // color: Colors.white,
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onPressed: () => _confirmSignOut(context),
           ),
@@ -59,14 +56,14 @@ class MealsOverviewPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 15.0),
                     child: Text(
                       'Popular',
-                      style: TextStyle(fontSize: 18.0),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                   Row(
                     children: [
-                      CategoriesContainer(),
-                      CategoriesContainer(),
-                      CategoriesContainer(),
+                      CategoriesContainer(context: context),
+                      CategoriesContainer(context: context),
+                      CategoriesContainer(context: context),
                     ],
                   ),
                   // SliverList(
@@ -107,7 +104,7 @@ class MealsOverviewPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 15.0),
                     child: Text(
                       'Featured',
-                      style: TextStyle(fontSize: 18.0),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                   // SliverList(

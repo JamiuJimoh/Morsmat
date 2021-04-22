@@ -33,11 +33,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
     if (_currentIndex != _slides.length - 1) {
       return Container(
         padding: EdgeInsets.only(bottom: 30.0, top: 20.0),
-        color: kPrimaryColor,
+        color: Theme.of(context).colorScheme.onPrimary,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             OnboardOutlinedButton(
+              context: context,
               label: 'SKIP',
               onPressed: () {
                 _pageController.animateToPage(
@@ -56,6 +57,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ],
             ),
             OnboardOutlinedButton(
+              context: context,
               label: 'Next',
               onPressed: () {
                 _pageController.animateToPage(
@@ -72,6 +74,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       return Padding(
         padding: const EdgeInsets.all(15.0),
         child: OnboardElevatedButton(
+          context: context,
           label: 'Get Started',
           onPressed: () => Navigator.of(context).pushNamed(LandingPage.id),
         ),
@@ -85,7 +88,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
       height: 4.0,
       width: isCurrentPage ? 20.0 : 13.0,
       decoration: BoxDecoration(
-        color: isCurrentPage ? kAccentColor : kScaffoldColor,
+        color: isCurrentPage
+            ? Theme.of(context).colorScheme.secondary
+            : Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(20.0),
       ),
     );

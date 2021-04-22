@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:morsmat/constants.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final Widget child;
@@ -9,7 +8,7 @@ class CustomOutlinedButton extends StatelessWidget {
 
   CustomOutlinedButton({
     required this.child,
-    this.borderSideColor: kAccentColor,
+    required this.borderSideColor,
     this.borderRadius: 20.0,
     this.onPressed,
   });

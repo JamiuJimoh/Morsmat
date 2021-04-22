@@ -79,14 +79,10 @@ class _EmailSignInFormChangeNotifierState
     return TextFormField(
       autocorrect: false,
       controller: _emailController,
+      style: Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(5.0),
-          ),
-        ),
+            const EdgeInsets.symmetric(vertical: 13.0, horizontal: 8.0),
         hintText: 'john@doe.com',
         labelText: 'Email',
         errorText: model.emailErrorText,
@@ -101,14 +97,10 @@ class _EmailSignInFormChangeNotifierState
   TextFormField _buildPasswordTextFormField() {
     return TextFormField(
       controller: _passwordController,
+      style: Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(5.0),
-          ),
-        ),
+            const EdgeInsets.symmetric(vertical: 13.0, horizontal: 8.0),
         labelText: 'Password',
         errorText: model.passwordErrorText,
         enabled: model.isLoading == false,
@@ -127,14 +119,10 @@ class _EmailSignInFormChangeNotifierState
   TextFormField _buildConfirmPasswordTextFormField() {
     return TextFormField(
       controller: _confirmPasswordController,
+      style: Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(5.0),
-          ),
-        ),
+            const EdgeInsets.symmetric(vertical: 13.0, horizontal: 8.0),
         labelText: 'Confirm Password',
         errorText: model.confirmPasswordErrorText,
         enabled: model.isLoading == false,
@@ -152,20 +140,22 @@ class _EmailSignInFormChangeNotifierState
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ToggleSignInFormButton(
+          context: context,
           text: 'Log In',
           buttonColor: model.formType == EmailSignInFormType.signIn
-              ? kAccentColor
-              : Colors.grey[400],
+              ? Theme.of(context).colorScheme.secondary
+              : Theme.of(context).colorScheme.onSecondary,
           onPressed: !model.isLoading
               ? () => _toggleAuthButton(EmailSignInFormType.signIn)
               : null,
         ),
         const SizedBox(width: 15.0),
         ToggleSignInFormButton(
+          context: context,
           text: 'Sign Up',
           buttonColor: model.formType == EmailSignInFormType.register
-              ? kAccentColor
-              : Colors.grey[400],
+              ? Theme.of(context).colorScheme.secondary
+              : Theme.of(context).colorScheme.onSecondary,
           onPressed: !model.isLoading
               ? () => _toggleAuthButton(EmailSignInFormType.register)
               : null,
@@ -186,6 +176,7 @@ class _EmailSignInFormChangeNotifierState
         _buildConfirmPasswordTextFormField(),
       const SizedBox(height: 25.0),
       FormSubmitButton(
+        context: context,
         text: model.authButtonText,
         onPressed: model.canSubmit ? _submit : null,
       ),

@@ -65,7 +65,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kAccentColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: _buildContent(context),
     );
   }
@@ -111,14 +111,14 @@ class SignInPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildHeader(),
+                        _buildHeader(context),
                       ],
                     ),
                   ),
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: kScaffoldColor,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(50.0),
                       topRight: Radius.circular(50.0),
@@ -137,16 +137,16 @@ class SignInPage extends StatelessWidget {
                         const SizedBox(height: 35.0),
                         Text(
                           'OR',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 25.0),
                         SocialSignInButton(
                           assetName: 'assets/images/google-logo.png',
                           text: 'Sign in with Google',
-                          textColor: kPrimaryColor,
+                          textStyle: Theme.of(context).textTheme.bodyText2,
                           buttonColor: kWhiteColor,
                           onPressed: () => _signInWithGoogle(context),
                         ),
@@ -159,7 +159,10 @@ class SignInPage extends StatelessWidget {
                         SocialSignInButton(
                           assetName: 'assets/images/facebook-logo.png',
                           text: 'Sign in with Facebook',
-                          textColor: kScaffoldColor,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: kWhiteColor),
                           buttonColor: kFacebookColor,
                           onPressed: () => _signInWithFacebook(context),
                         ),
@@ -175,11 +178,11 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     if (isLoading) {
       return Center(
         child: CircularProgressIndicator(
-          backgroundColor: kScaffoldColor,
+          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
       );
     }
@@ -193,11 +196,9 @@ class SignInPage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 40.0),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 27.0,
-          color: kScaffoldColor,
-          fontWeight: FontWeight.w700,
-        ),
+        style: Theme.of(context).textTheme.headline1!.copyWith(
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

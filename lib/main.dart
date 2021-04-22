@@ -18,14 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider<AuthBase>(
       create: (context) => Auth(),
-      child: MaterialApp(
-        title: 'Morsmat',
-        theme: AppTheme.primaryAppTheme,
-        initialRoute: OnboardingPage.id,
-        routes: {
-          OnboardingPage.id: (context) => OnboardingPage(),
-          LandingPage.id: (context) => LandingPage(),
-        },
+      child: Consumer<AuthBase>(
+        builder: (_, auth, __) => MaterialApp(
+          title: 'Morsmat',
+          theme: AppTheme.primaryAppTheme,
+          initialRoute:
+              auth.currentUser != null ? LandingPage.id : OnboardingPage.id,
+          routes: {
+            OnboardingPage.id: (context) => OnboardingPage(),
+            LandingPage.id: (context) => LandingPage(),
+          },
+        ),
       ),
     );
   }
