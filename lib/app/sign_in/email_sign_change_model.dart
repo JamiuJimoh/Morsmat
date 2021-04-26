@@ -41,10 +41,16 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
     }
   }
 
-  String get authButtonText {
+  String get primaryButtonText {
     return formType == EmailSignInFormType.signIn
         ? 'Sign In'
         : 'Create an account';
+  }
+
+  List<String> get secondaryButtonText {
+    final signInText = <String>['Don\'t have an account? ', 'Register'];
+    final registerText = <String>['Already Have an account? ', 'Sign In'];
+    return formType == EmailSignInFormType.signIn ? signInText : registerText;
   }
 
   bool get canSubmit {
@@ -82,16 +88,17 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? invalidConfirmPasswordErrorText : null;
   }
 
-  void toggleAuthButton(EmailSignInFormType formType) {
+  void toggleFormType() {
+    final formType = this.formType == EmailSignInFormType.signIn
+        ? EmailSignInFormType.register
+        : EmailSignInFormType.signIn;
     updateWith(
       email: '',
       password: '',
-      confirmPassword: '',
       formType: formType,
       isLoading: false,
       submitted: false,
     );
-    notifyListeners();
   }
 
   void updateEmail(String email) => updateWith(email: email);
