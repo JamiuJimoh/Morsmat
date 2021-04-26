@@ -17,7 +17,7 @@ class AppTheme {
   static const Color _lightPrimaryVariantColor = Color(0xFFF5F6Fa);
   static const Color _lightOnPrimaryColor = _lightSurfaceColor;
   static const Color _lightSecondaryColor = Color(0xFFF54748);
-  static const Color _lightSecondaryVariantColor = Color(0xFF121315);
+  static const Color _lightSecondaryVariantColor = Color(0xFFe2e3e6);
   static const Color _lightOnSecondaryColor = _lightPrimaryColor;
 
   static final ThemeData primaryAppTheme = ThemeData(
@@ -59,20 +59,26 @@ class AppTheme {
       contentTextStyle: _lightBody2TextStyle,
     ),
 
+    // inputDecorationTheme: InputDecorationTheme(
+    // hintStyle: _lightBody2TextStyle,
+    // labelStyle: _lightBody2TextStyle,
+    // filled: true,
+    // fillColor: _lightPrimaryVariantColor,
+    //   focusedBorder: OutlineInputBorder(
+    //     borderSide: BorderSide(color: _lightSecondaryVariantColor),
+    //   ),
+    //   focusColor: Colors.green,
+    //   border: OutlineInputBorder(
+    //     borderSide: BorderSide(color: _lightPrimaryVariantColor),
+    //   ),
+    // ),
     inputDecorationTheme: InputDecorationTheme(
-      hintStyle: _lightBody2TextStyle,
-      labelStyle: _lightBody2TextStyle,
-      filled: true,
-      fillColor: _lightPrimaryVariantColor,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightSecondaryVariantColor),
-      ),
-      border: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightPrimaryVariantColor),
-      ),
-    ),
+        // hintStyle: _lightBody2TextStyle,
+        // labelStyle: _lightBody2TextStyle,
+        // filled: true,
+        // fillColor: _lightPrimaryVariantColor,
 
-    buttonTheme: ButtonThemeData(disabledColor: _subtitleTextColor),
+        ),
 
     /////// FONT THEME ///////
     textTheme: _lightTextTheme,

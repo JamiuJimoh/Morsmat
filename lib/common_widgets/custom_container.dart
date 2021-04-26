@@ -7,6 +7,7 @@ class CustomContainer extends StatelessWidget {
   final Color containerColor;
   final Color borderColor;
   final double? borderRadius;
+  final EdgeInsetsGeometry? padding;
 
   CustomContainer({
     required this.height,
@@ -14,6 +15,7 @@ class CustomContainer extends StatelessWidget {
     required this.child,
     required this.containerColor,
     required this.borderColor,
+    this.padding,
     this.borderRadius: 20.0,
   });
 
@@ -23,6 +25,7 @@ class CustomContainer extends StatelessWidget {
       height: height,
       width: width,
       child: Container(
+        padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius!)),
           color: containerColor,

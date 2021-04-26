@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/constants.dart';
+import 'package:morsmat/app/sign_in/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
@@ -9,7 +9,6 @@ import '../landing_page.dart';
 import 'email_sign_change_model.dart';
 import 'email_sign_in_model.dart';
 import 'form_submit_button.dart';
-import 'toggle_sign_in_form_button.dart';
 
 class EmailSignInFormChangeNotifier extends StatefulWidget {
   final EmailSignInChangeModel model;
@@ -35,6 +34,8 @@ class _EmailSignInFormChangeNotifierState
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
+  var _obscureText = true;
 
   EmailSignInChangeModel get model => widget.model;
 
@@ -65,8 +66,8 @@ class _EmailSignInFormChangeNotifierState
 
   ///////// HELPER METHODS /////////
 
-  void _toggleAuthButton(EmailSignInFormType formType) {
-    model.toggleAuthButton(formType);
+  void _toggleFormType() {
+    model.toggleFormType();
 
     _emailController.clear();
     _passwordController.clear();
@@ -75,39 +76,45 @@ class _EmailSignInFormChangeNotifierState
 
   //////// WIDGETS METHODS ///////////
 
-  TextFormField _buildEmailTextFormField() {
-    return TextFormField(
-      autocorrect: false,
+  CustomTextField _buildEmailTextFormField() {
+    return CustomTextField(
       controller: _emailController,
-      style: Theme.of(context).textTheme.bodyText2,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 13.0, horizontal: 8.0),
-        hintText: 'john@doe.com',
-        labelText: 'Email',
-        errorText: model.emailErrorText,
-        enabled: model.isLoading == false,
-      ),
+      hintText: 'Email',
+      // labelText: 'Email',
+      icon: Icons.email_outlined,
       onChanged: model.updateEmail,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
+      errorText: model.emailErrorText,
+      enabled: model.isLoading == false,
     );
   }
 
-  TextFormField _buildPasswordTextFormField() {
-    return TextFormField(
+  Widget _buildPasswordFieldSuffixIcon() {
+    final icon = Icon(
+      _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+    );
+    return GestureDetector(
+      child: icon,
+      onTap: () {
+        setState(() {
+          _obscureText = !_obscureText;
+        });
+      },
+    );
+  }
+
+  CustomTextField _buildPasswordTextFormField() {
+    return CustomTextField(
       controller: _passwordController,
-      style: Theme.of(context).textTheme.bodyText2,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 13.0, horizontal: 8.0),
-        labelText: 'Password',
-        errorText: model.passwordErrorText,
-        enabled: model.isLoading == false,
-      ),
+      hintText: 'Password',
+      icon: Icons.lock_outline,
+      suffixIcon: _buildPasswordFieldSuffixIcon(),
+      errorText: model.passwordErrorText,
+      enabled: model.isLoading == false,
       keyboardType: TextInputType.visiblePassword,
       onChanged: model.updatePassword,
-      obscureText: true,
+      obscureText: _obscureText,
       textInputAction: model.formType == EmailSignInFormType.signIn
           ? TextInputAction.done
           : TextInputAction.next,
@@ -116,58 +123,41 @@ class _EmailSignInFormChangeNotifierState
     );
   }
 
-  TextFormField _buildConfirmPasswordTextFormField() {
-    return TextFormField(
+  CustomTextField _buildConfirmPasswordTextFormField() {
+    return CustomTextField(
       controller: _confirmPasswordController,
-      style: Theme.of(context).textTheme.bodyText2,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 13.0, horizontal: 8.0),
-        labelText: 'Confirm Password',
-        errorText: model.confirmPasswordErrorText,
-        enabled: model.isLoading == false,
-      ),
+      hintText: 'Confirm Password',
+      icon: Icons.lock_outline,
+      errorText: model.confirmPasswordErrorText,
+      enabled: model.isLoading == false,
       keyboardType: TextInputType.visiblePassword,
       onChanged: model.updateConfirmPassword,
-      obscureText: true,
+      obscureText: _obscureText,
       textInputAction: TextInputAction.done,
       onEditingComplete: _submit,
     );
   }
 
-  Widget _buildToggleButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ToggleSignInFormButton(
-          context: context,
-          text: 'Log In',
-          buttonColor: model.formType == EmailSignInFormType.signIn
-              ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.onSecondary,
-          onPressed: !model.isLoading
-              ? () => _toggleAuthButton(EmailSignInFormType.signIn)
-              : null,
-        ),
-        const SizedBox(width: 15.0),
-        ToggleSignInFormButton(
-          context: context,
-          text: 'Sign Up',
-          buttonColor: model.formType == EmailSignInFormType.register
-              ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.onSecondary,
-          onPressed: !model.isLoading
-              ? () => _toggleAuthButton(EmailSignInFormType.register)
-              : null,
-        ),
-      ],
+  Widget _buildHeader() {
+    final text = model.formType == EmailSignInFormType.signIn
+        ? 'Welcome back'
+        : 'Create an account';
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30.0),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.headline2!.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
+      ),
     );
   }
 
   List<Widget> _buildChildren() {
     return [
-      _buildToggleButtons(),
-      const SizedBox(height: 35.0),
+      _buildHeader(),
+      const SizedBox(height: 15.0),
       _buildEmailTextFormField(),
       const SizedBox(height: 10.0),
       _buildPasswordTextFormField(),
@@ -177,8 +167,32 @@ class _EmailSignInFormChangeNotifierState
       const SizedBox(height: 25.0),
       FormSubmitButton(
         context: context,
-        text: model.authButtonText,
-        onPressed: model.canSubmit ? _submit : null,
+        child: Text(
+          model.primaryButtonText,
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(color: Theme.of(context).colorScheme.primary),
+        ),
+        onPressed: model.canSubmit ? _submit : () {},
+      ),
+      const SizedBox(height: 25.0),
+      GestureDetector(
+        child: RichText(
+          text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: [
+              TextSpan(text: model.secondaryButtonText[0]),
+              TextSpan(
+                text: model.secondaryButtonText[1],
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+        onTap: !model.isLoading ? _toggleFormType : null,
       ),
     ];
   }

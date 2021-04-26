@@ -65,7 +65,6 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: _buildContent(context),
     );
   }
@@ -99,79 +98,71 @@ class SignInPage extends StatelessWidget {
   ///////// WIDGETS METHODS ////////
 
   Widget _buildContent(BuildContext context) {
-    return LayoutBuilder(
-      builder: (_, constraint) => SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraint.maxHeight),
-          child: IntrinsicHeight(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildHeader(context),
-                      ],
+    final size = MediaQuery.of(context).size;
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              _buildHeader(context),
+              const SizedBox(height: 15.0),
+              EmailSignInFormChangeNotifier.create(context),
+              const SizedBox(height: 15.0),
+              Container(
+                width: size.width * 0.8,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        height: 1.5,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        'OR',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        height: 1.5,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50.0),
-                      topRight: Radius.circular(50.0),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 50.0, top: 30.0, left: 25.0, right: 25.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // SizedBox(height: 90.0, child: _buildHeader()),
-                        const SizedBox(height: 15.0),
-                        EmailSignInFormChangeNotifier.create(context),
-
-                        const SizedBox(height: 35.0),
-                        Text(
-                          'OR',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 25.0),
-                        SocialSignInButton(
-                          assetName: 'assets/images/google-logo.png',
-                          text: 'Sign in with Google',
-                          textStyle: Theme.of(context).textTheme.bodyText2,
-                          buttonColor: kWhiteColor,
-                          onPressed: () => _signInWithGoogle(context),
-                        ),
-                        const SizedBox(height: 25.0),
-                        // SocialSignInButton(
-                        //   assetName: 'assets/images/facebook-logo.png',
-                        //   onPressed: () => _signInAnonymously(context),
-                        // ),
-                        // const SizedBox(height: 25.0),
-                        SocialSignInButton(
-                          assetName: 'assets/images/facebook-logo.png',
-                          text: 'Sign in with Facebook',
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: kWhiteColor),
-                          buttonColor: kFacebookColor,
-                          onPressed: () => _signInWithFacebook(context),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 25.0),
+              SocialSignInButton(
+                assetName: 'assets/images/google-logo.png',
+                text: 'Sign in with Google',
+                textStyle: Theme.of(context).textTheme.bodyText2,
+                buttonColor: kWhiteColor,
+                onPressed: () => _signInWithGoogle(context),
+              ),
+              const SizedBox(height: 25.0),
+              // SocialSignInButton(
+              //   assetName: 'assets/images/facebook-logo.png',
+              //   onPressed: () => _signInAnonymously(context),
+              // ),
+              // const SizedBox(height: 25.0),
+              SocialSignInButton(
+                assetName: 'assets/images/facebook-logo.png',
+                text: 'Sign in with Facebook',
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(color: kWhiteColor),
+                buttonColor: kFacebookColor,
+                onPressed: () => _signInWithFacebook(context),
+              ),
+            ],
           ),
         ),
       ),
@@ -187,19 +178,6 @@ class SignInPage extends StatelessWidget {
       );
     }
 
-    // TODO: fix the text not displaying
-    final text = formType == EmailSignInFormType.signIn
-        ? 'Welcome back'
-        : 'Create an account';
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 40.0),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.headline1!.copyWith(
-            fontWeight: FontWeight.w700,
-            color: Theme.of(context).colorScheme.primary),
-      ),
-    );
+    return Text('');
   }
 }

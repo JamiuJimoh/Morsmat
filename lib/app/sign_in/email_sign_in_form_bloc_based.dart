@@ -8,7 +8,6 @@ import '../landing_page.dart';
 import 'email_sign_in_bloc.dart';
 import 'email_sign_in_model.dart';
 import 'form_submit_button.dart';
-import 'toggle_sign_in_form_button.dart';
 
 class EmailSignInFormBlocBased extends StatefulWidget {
   final EmailSignInBloc bloc;
@@ -59,14 +58,6 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
     }
   }
 
-  ///////// HELPER METHODS /////////
-
-  void _toggleAuthButton(EmailSignInFormType formType) {
-    widget.bloc.toggleAuthButton(formType);
-
-    _emailController.clear();
-    _passwordController.clear();
-  }
 
   //////// WIDGETS METHODS ///////////
 
@@ -102,38 +93,8 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
     );
   }
 
-  Widget _buildToggleButtons(EmailSignInModel model) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ToggleSignInFormButton(
-          context: context,
-          text: 'Log In',
-          buttonColor: model.formType == EmailSignInFormType.signIn
-              ? null
-              : Theme.of(context).colorScheme.onSecondary,
-          onPressed: !model.isLoading
-              ? () => _toggleAuthButton(EmailSignInFormType.signIn)
-              : null,
-        ),
-        const SizedBox(width: 15.0),
-        ToggleSignInFormButton(
-          context: context,
-          text: 'Sign Up',
-          buttonColor: model.formType == EmailSignInFormType.register
-              ? null
-              : Theme.of(context).colorScheme.onSecondary,
-          onPressed: !model.isLoading
-              ? () => _toggleAuthButton(EmailSignInFormType.register)
-              : null,
-        ),
-      ],
-    );
-  }
-
   List<Widget> _buildChildren(EmailSignInModel model) {
     return [
-      _buildToggleButtons(model),
       const SizedBox(height: 35.0),
       _buildEmailTextFormField(model),
       const SizedBox(height: 10.0),
@@ -141,7 +102,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       const SizedBox(height: 25.0),
       FormSubmitButton(
         context: context,
-        text: model.authButtonText,
+        child: Text(model.authButtonText),
         onPressed: model.canSubmit ? _submit : null,
       ),
     ];
