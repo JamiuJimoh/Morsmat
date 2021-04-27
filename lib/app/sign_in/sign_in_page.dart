@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'email_sign_in_model.dart';
 import '../../constants.dart';
-import 'email_sign_change_model.dart';
 import 'email_sign_in_form_change_notifier.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
@@ -14,11 +12,9 @@ import 'social_sign_in_button.dart';
 class SignInPage extends StatelessWidget {
   final SignInManager manager;
   final bool isLoading;
-  final EmailSignInFormType formType;
   const SignInPage({
     required this.manager,
     required this.isLoading,
-    required this.formType,
   });
 
   static const String id = 'sign_in_page';
@@ -31,16 +27,9 @@ class SignInPage extends StatelessWidget {
         builder: (_, isLoading, __) => Provider<SignInManager>(
           create: (_) => SignInManager(auth: auth, isLoading: isLoading),
           child: Consumer<SignInManager>(
-            builder: (_, manager, __) =>
-                ChangeNotifierProvider<EmailSignInChangeModel>(
-              create: (_) => EmailSignInChangeModel(auth: auth),
-              child: Consumer<EmailSignInChangeModel>(
-                builder: (_, model, __) => SignInPage(
-                  formType: model.formType,
-                  manager: manager,
-                  isLoading: isLoading.value,
-                ),
-              ),
+            builder: (_, manager, __) => SignInPage(
+              manager: manager,
+              isLoading: isLoading.value,
             ),
           ),
         ),
