@@ -44,7 +44,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   Future<void> _submit() async {
     try {
       await widget.bloc.submit();
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => LandingPage()),
       );
     } on FirebaseAuthException catch (e) {

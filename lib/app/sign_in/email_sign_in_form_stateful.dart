@@ -48,7 +48,7 @@
 //         await auth.createUserWithEmailAndPassword(_email, _password);
 //       }
 //       Navigator.of(context)
-//           .push(MaterialPageRoute(builder: (_) => LandingPage()));
+//           .pushReplacement(MaterialPageRoute(builder: (_) => LandingPage()));
 //     } on FirebaseAuthException catch (e) {
 //       // TODO: test ios widget
 

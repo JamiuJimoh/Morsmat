@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<AuthBase>(
         builder: (_, auth, __) => MaterialApp(
           title: 'Morsmat',
-          theme: AppTheme.primaryAppTheme,
+          theme: AppTheme.lightTheme,
           initialRoute:
               auth.currentUser != null ? LandingPage.id : OnboardingPage.id,
           routes: {

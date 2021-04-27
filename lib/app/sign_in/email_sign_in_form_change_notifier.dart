@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:morsmat/app/sign_in/custom_text_field.dart';
+import 'package:morsmat/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
@@ -36,6 +37,7 @@ class _EmailSignInFormChangeNotifierState
   final _confirmPasswordController = TextEditingController();
 
   var _obscureText = true;
+  var _isLoading = false;
 
   EmailSignInChangeModel get model => widget.model;
 
@@ -49,8 +51,11 @@ class _EmailSignInFormChangeNotifierState
   //////// SERVICES METHODS ///////////
   Future<void> _submit() async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
       await model.submit();
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => LandingPage()),
       );
     } on FirebaseAuthException catch (e) {
@@ -61,6 +66,10 @@ class _EmailSignInFormChangeNotifierState
         title: 'Sign in failed',
         exception: e,
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -167,13 +176,18 @@ class _EmailSignInFormChangeNotifierState
       const SizedBox(height: 25.0),
       FormSubmitButton(
         context: context,
-        child: Text(
-          model.primaryButtonText,
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
+        child: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                backgroundColor: kWhiteColor,
+              ))
+            : Text(
+                model.primaryButtonText,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
         onPressed: model.canSubmit ? _submit : () {},
       ),
       const SizedBox(height: 25.0),
