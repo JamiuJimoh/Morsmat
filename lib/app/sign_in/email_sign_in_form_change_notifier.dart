@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/app/sign_in/custom_text_field.dart';
+import 'package:morsmat/app/sign_in/sign_in_text_field.dart';
 import 'package:morsmat/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +58,9 @@ class _EmailSignInFormChangeNotifierState
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => LandingPage()),
       );
+      setState(() {
+        _isLoading = false;
+      });
     } on FirebaseAuthException catch (e) {
       // TODO: test ios widget
 
@@ -66,7 +69,6 @@ class _EmailSignInFormChangeNotifierState
         title: 'Sign in failed',
         exception: e,
       );
-    } finally {
       setState(() {
         _isLoading = false;
       });
@@ -85,7 +87,7 @@ class _EmailSignInFormChangeNotifierState
 
   //////// WIDGETS METHODS ///////////
 
-  CustomTextField _buildEmailTextFormField() {
+  CustomTextField _buildEmailTextField() {
     return CustomTextField(
       controller: _emailController,
       hintText: 'Email',
@@ -113,7 +115,7 @@ class _EmailSignInFormChangeNotifierState
     );
   }
 
-  CustomTextField _buildPasswordTextFormField() {
+  CustomTextField _buildPasswordTextField() {
     return CustomTextField(
       controller: _passwordController,
       hintText: 'Password',
@@ -132,7 +134,7 @@ class _EmailSignInFormChangeNotifierState
     );
   }
 
-  CustomTextField _buildConfirmPasswordTextFormField() {
+  CustomTextField _buildConfirmPasswordTextField() {
     return CustomTextField(
       controller: _confirmPasswordController,
       hintText: 'Confirm Password',
@@ -167,12 +169,12 @@ class _EmailSignInFormChangeNotifierState
     return [
       _buildHeader(),
       const SizedBox(height: 15.0),
-      _buildEmailTextFormField(),
+      _buildEmailTextField(),
       const SizedBox(height: 10.0),
-      _buildPasswordTextFormField(),
+      _buildPasswordTextField(),
       const SizedBox(height: 10.0),
       if (model.formType == EmailSignInFormType.register)
-        _buildConfirmPasswordTextFormField(),
+        _buildConfirmPasswordTextField(),
       const SizedBox(height: 25.0),
       FormSubmitButton(
         context: context,
