@@ -40,7 +40,7 @@ class CustomTextField extends StatelessWidget {
       width: mediaQuery.width * 0.9,
       containerColor: Theme.of(context).colorScheme.primaryVariant,
       borderColor: Theme.of(context).colorScheme.primaryVariant,
-      child: TextFormField(
+      child: TextField(
         cursorColor: Theme.of(context).colorScheme.onPrimary,
         autocorrect: false,
         controller: controller,

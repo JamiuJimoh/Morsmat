@@ -90,9 +90,9 @@
 
 //   //////// WIDGETS METHODS ///////////
 
-//   TextFormField _buildEmailTextFormField() {
+//   TextField _buildEmailTextField() {
 //     var showErrorText = _submitted && !widget.emailValidator.isValid(_email);
-//     return TextFormField(
+//     return TextField(
 //       autocorrect: false,
 //       controller: _emailController,
 //       decoration: InputDecoration(
@@ -107,11 +107,11 @@
 //     );
 //   }
 
-//   TextFormField _buildPasswordTextFormField() {
+//   TextField _buildPasswordTextField() {
 //     var showErrorText =
 //         _submitted && !widget.passwordValidator.isValid(_password);
 
-//     return TextFormField(
+//     return TextField(
 //       controller: _passwordController,
 //       decoration: InputDecoration(
 //         labelText: 'Password',
@@ -160,9 +160,9 @@
 //     return [
 //       _buildToggleButtons(),
 //       const SizedBox(height: 35.0),
-//       _buildEmailTextFormField(),
+//       _buildEmailTextField(),
 //       const SizedBox(height: 10.0),
-//       _buildPasswordTextFormField(),
+//       _buildPasswordTextField(),
 //       const SizedBox(height: 25.0),
 //       FormSubmitButton(
 //         text: primaryText,

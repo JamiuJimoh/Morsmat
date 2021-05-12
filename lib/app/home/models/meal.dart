@@ -25,9 +25,8 @@ class Meal {
     this.isFavorite = false,
   });
 
-  factory Meal.fromMap(Map<String, dynamic> data) {
+  factory Meal.fromMap(Map<String, dynamic> data, String documentId) {
     final String mealName = data['mealName'];
-    final String mealId = data['mealId'];
     final String description = data['description'];
     final double price = data['price'];
     final String imageUrl = data['imageUrl'];
@@ -37,7 +36,7 @@ class Meal {
     final String location = data['location'];
 
     return Meal(
-      mealId: mealId,
+      mealId: documentId,
       mealName: mealName,
       description: description,
       price: price,

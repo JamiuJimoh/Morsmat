@@ -1,42 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
-import 'categories_container.dart';
-import '../../common_widgets/show_alert_dialog.dart';
-import '../../services/database.dart';
-import '../../services/auth.dart';
-import 'models/meal.dart';
+import 'meals_list_tile.dart';
+// import 'categories_container.dart';
+import 'edit_meal_page.dart';
+import '../../../common_widgets/show_alert_dialog.dart';
+import '../../../services/database.dart';
+import '../../../services/auth.dart';
+import '../models/meal.dart';
 
 class MealsOverviewPage extends StatelessWidget {
   ///////// HELPER METHOD ////////
-
-  Future<void> _createMeal(BuildContext context) async {
-    try {
-      final database = Provider.of<Database>(context, listen: false);
-      await database.createMeal(
-        Meal(
-          mealId: '111',
-          mealName: 'Meat',
-          description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.',
-          price: 10.0,
-          imageUrl:
-              'https://images.unsplash.com/photo-1592894869086-f828b161e90a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=500&q=40.png',
-          timeToPrep: 45,
-          distance: 24.5,
-          location: '97, Stockholm',
-        ),
-      );
-    } on FirebaseException catch (e) {
-      showExceptionAlertDialog(
-        context,
-        title: 'Operation failed',
-        exception: e,
-      );
-    }
-  }
 
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -70,11 +44,15 @@ class MealsOverviewPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final meals = snapshot.data!;
-            // TODO: Empty list page
             if (meals.length == 0) {
               return Center(child: Text('No meals yet'));
             }
-            final children = meals.map((meal) => Text(meal.mealName)).toList();
+            final children = meals
+                .map((meal) => MealsListTile(
+                      meal: meal,
+                      onTap: () => EditMealPage.show(context, meal: meal),
+                    ))
+                .toList();
 
             return ListView(children: children);
           }
@@ -183,7 +161,7 @@ class MealsOverviewPage extends StatelessWidget {
       ),
       body: _buildContent(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _createMeal(context),
+        onPressed: () => EditMealPage.show(context),
         child: Icon(Icons.add),
         elevation: 1.0,
       ),

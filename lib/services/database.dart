@@ -8,6 +8,8 @@ abstract class Database {
   Stream<List<Meal>>? mealsStream();
 }
 
+String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
+
 class FireStoreDatabase implements Database {
   final String uid;
 
@@ -18,12 +20,12 @@ class FireStoreDatabase implements Database {
   @override
   Stream<List<Meal>> mealsStream() => _service.collectionStream(
         path: APIPath.meals(uid: uid),
-        builder: (data) => Meal.fromMap(data),
+        builder: (data, documentId) => Meal.fromMap(data, documentId),
       );
 
   @override
   Future<void> createMeal(Meal meal) => _service.setData(
-        path: APIPath.meal(uid: uid, mealId: 'meal_123'),
+        path: APIPath.meal(uid: uid, mealId: documentIdFromCurrentDate()),
         data: meal.toMap(),
       );
 }

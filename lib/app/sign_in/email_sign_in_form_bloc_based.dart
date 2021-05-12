@@ -58,11 +58,10 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
     }
   }
 
-
   //////// WIDGETS METHODS ///////////
 
-  TextFormField _buildEmailTextFormField(EmailSignInModel model) {
-    return TextFormField(
+  TextField _buildEmailTextField(EmailSignInModel model) {
+    return TextField(
       autocorrect: false,
       controller: _emailController,
       decoration: InputDecoration(
@@ -77,8 +76,8 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
     );
   }
 
-  TextFormField _buildPasswordTextFormField(EmailSignInModel model) {
-    return TextFormField(
+  TextField _buildPasswordTextField(EmailSignInModel model) {
+    return TextField(
       controller: _passwordController,
       decoration: InputDecoration(
         labelText: 'Password',
@@ -96,9 +95,9 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   List<Widget> _buildChildren(EmailSignInModel model) {
     return [
       const SizedBox(height: 35.0),
-      _buildEmailTextFormField(model),
+      _buildEmailTextField(model),
       const SizedBox(height: 10.0),
-      _buildPasswordTextFormField(model),
+      _buildPasswordTextField(model),
       const SizedBox(height: 25.0),
       FormSubmitButton(
         context: context,
