@@ -1,23 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:morsmat/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../models/meal.dart';
+import '../../../common_widgets/show_exception_alert_dialog.dart';
 import '../../../services/database.dart';
+import '../../../services/auth.dart';
 import 'edit_meal_text_form_field.dart';
 import 'validators.dart';
 
 class EditMealPage extends StatefulWidget with MealValidators {
-  EditMealPage({required this.database, this.meal});
+  EditMealPage({required this.database, required this.auth, this.meal});
   final Database database;
+  final AuthBase auth;
   final Meal? meal;
 
   static Future<void> show(BuildContext context, {Meal? meal}) async {
     final database = Provider.of<Database>(context, listen: false);
+    final auth = Provider.of<AuthBase>(context, listen: false);
+
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EditMealPage(database: database, meal: meal),
+        builder: (context) =>
+            EditMealPage(database: database, auth: auth, meal: meal),
         fullscreenDialog: true,
       ),
     );
@@ -74,8 +79,11 @@ class _EditMealPageState extends State<EditMealPage> {
         setState(() {
           _isLoading = true;
         });
+        final mealId = widget.meal?.mealId ?? documentIdFromCurrentDate();
+        final vendorId = widget.auth.currentUser?.uid;
         final meal = Meal(
-          mealId: DateTime.now().toIso8601String(),
+          mealId: mealId,
+          vendorId: vendorId!,
           mealName: _initialValue['mealName'],
           description: _initialValue['description'],
           price: _initialValue['price'],
@@ -85,10 +93,10 @@ class _EditMealPageState extends State<EditMealPage> {
           distance: 25.5,
           location: 'Stockholm',
         );
-        await widget.database.createMeal(meal);
-        setState(() {
-          _isLoading = false;
-        });
+          await widget.database.setMeal(meal);
+          setState(() {
+            _isLoading = false;
+          });
         Navigator.of(context).pop();
       } on FirebaseException catch (e) {
         setState(() {

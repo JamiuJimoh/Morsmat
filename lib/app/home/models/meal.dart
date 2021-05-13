@@ -1,5 +1,6 @@
 class Meal {
   final String mealId;
+  final String vendorId;
   final String mealName;
   final String description;
   final double price;
@@ -13,6 +14,7 @@ class Meal {
 
   Meal({
     required this.mealId,
+    required this.vendorId,
     required this.mealName,
     required this.description,
     required this.price,
@@ -27,6 +29,7 @@ class Meal {
 
   factory Meal.fromMap(Map<String, dynamic> data, String documentId) {
     final String mealName = data['mealName'];
+    final String vendorId = data['vendorId'];
     final String description = data['description'];
     final double price = data['price'];
     final String imageUrl = data['imageUrl'];
@@ -37,6 +40,7 @@ class Meal {
 
     return Meal(
       mealId: documentId,
+      vendorId:vendorId,
       mealName: mealName,
       description: description,
       price: price,
@@ -50,6 +54,7 @@ class Meal {
   Map<String, dynamic> toMap() {
     return {
       'mealId': mealId,
+      'vendorId': vendorId,
       'mealName': mealName,
       'description': description,
       'price': price,
