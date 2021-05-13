@@ -4,7 +4,7 @@ import 'package:morsmat/services/firestore_service.dart';
 import '../app/home/models/meal.dart';
 
 abstract class Database {
-  Future<void> createMeal(Meal mealData);
+  Future<void> setMeal(Meal mealData);
   Stream<List<Meal>>? mealsStream();
 }
 
@@ -19,13 +19,13 @@ class FireStoreDatabase implements Database {
 
   @override
   Stream<List<Meal>> mealsStream() => _service.collectionStream(
-        path: APIPath.meals(uid: uid),
+        path: APIPath.meals(),
         builder: (data, documentId) => Meal.fromMap(data, documentId),
       );
 
   @override
-  Future<void> createMeal(Meal meal) => _service.setData(
-        path: APIPath.meal(uid: uid, mealId: documentIdFromCurrentDate()),
+  Future<void> setMeal(Meal meal) => _service.setData(
+        path: APIPath.meal(mealId: meal.mealId),
         data: meal.toMap(),
       );
 }
