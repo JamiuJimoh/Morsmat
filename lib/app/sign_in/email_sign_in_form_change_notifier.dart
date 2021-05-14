@@ -158,7 +158,7 @@ class _EmailSignInFormChangeNotifierState
       padding: const EdgeInsets.only(bottom: 30.0),
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline2!.copyWith(
+        style: Theme.of(context).textTheme.headline2?.copyWith(
               fontWeight: FontWeight.w500,
             ),
       ),

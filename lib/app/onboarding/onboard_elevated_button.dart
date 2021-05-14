@@ -10,7 +10,7 @@ class OnboardElevatedButton extends CustomElevatedButton {
   }) : super(
           child: Text(
             label,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontSize: 20.0,
                   color: Theme.of(context).colorScheme.primary,
                 ),

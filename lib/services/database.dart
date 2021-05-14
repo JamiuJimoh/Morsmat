@@ -6,6 +6,7 @@ import '../app/home/models/meal.dart';
 abstract class Database {
   Future<void> setMeal(Meal mealData);
   Stream<List<Meal>>? mealsStream();
+  Future<void> deleteMeal(Meal meal);
 }
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
@@ -27,5 +28,10 @@ class FireStoreDatabase implements Database {
   Future<void> setMeal(Meal meal) => _service.setData(
         path: APIPath.meal(mealId: meal.mealId),
         data: meal.toMap(),
+      );
+
+  @override
+  Future<void> deleteMeal(Meal meal) => _service.deleteData(
+        path: APIPath.meal(mealId: meal.mealId),
       );
 }

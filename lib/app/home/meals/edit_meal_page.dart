@@ -93,10 +93,10 @@ class _EditMealPageState extends State<EditMealPage> {
           distance: 25.5,
           location: 'Stockholm',
         );
-          await widget.database.setMeal(meal);
-          setState(() {
-            _isLoading = false;
-          });
+        await widget.database.setMeal(meal);
+        setState(() {
+          _isLoading = false;
+        });
         Navigator.of(context).pop();
       } on FirebaseException catch (e) {
         setState(() {
@@ -108,6 +108,19 @@ class _EditMealPageState extends State<EditMealPage> {
           exception: e,
         );
       }
+    }
+  }
+
+  Future<void> _deleteMeal(BuildContext context, meal) async {
+    try {
+      await widget.database.deleteMeal(meal);
+      Navigator.of(context).pop();
+    } on FirebaseException catch (e) {
+      showExceptionAlertDialog(
+        context,
+        title: 'Operation failed',
+        exception: e,
+      );
     }
   }
 
@@ -136,6 +149,10 @@ class _EditMealPageState extends State<EditMealPage> {
         ],
       ),
       body: _buildContent(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete),
+        onPressed: () => _deleteMeal(context, widget.meal),
+      ),
     );
   }
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'meals_list_tile.dart';
 // import 'categories_container.dart';
 import 'edit_meal_page.dart';
 import '../../../common_widgets/show_alert_dialog.dart';
-import '../../../common_widgets/firebase_empty_state_page.dart';
 import '../../../services/database.dart';
 import '../../../services/auth.dart';
 import '../models/meal.dart';
+import 'list_items_builder.dart';
+import 'meals_list_tile.dart';
 
 class MealsOverviewPage extends StatelessWidget {
   ///////// HELPER METHOD ////////
@@ -39,34 +39,23 @@ class MealsOverviewPage extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     final database = Provider.of<Database>(context, listen: false);
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    final user = auth.currentUser;
 
     return StreamBuilder<List<Meal>>(
-        stream: database.mealsStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final meals = snapshot.data!;
-            if (meals.length == 0) {
-              return FirebaseEmptyStatePage();
-            }
-            final auth = Provider.of<AuthBase>(context, listen: false);
-            final user = auth.currentUser;
-            final children = meals
-                .map((meal) => MealsListTile(
-                      meal: meal,
-                      onTap: meal.vendorId == user?.uid
-                          ? () => EditMealPage.show(context, meal: meal)
-                          : null,
-                    ))
-                .toList();
-
-            return ListView(children: children);
-          }
-          if (snapshot.hasError) {
-            print(snapshot.error);
-            return Center(child: Text('Some error occurred!'));
-          }
-          return Center(child: CircularProgressIndicator());
-        });
+      stream: database.mealsStream(),
+      builder: (context, snapshot) {
+        return ListItemsBuilder<Meal>(
+          snapshot: snapshot,
+          itemBuilder: (context, meal) => MealsListTile(
+            meal: meal,
+            onTap: meal.vendorId == user?.uid
+                ? () => EditMealPage.show(context, meal: meal)
+                : null,
+          ),
+        );
+      },
+    );
     // return CustomScrollView(
     //   slivers: [
     //     SliverToBoxAdapter(
