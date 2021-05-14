@@ -113,8 +113,10 @@ class _EditMealPageState extends State<EditMealPage> {
 
   Future<void> _deleteMeal(BuildContext context, meal) async {
     try {
-      await widget.database.deleteMeal(meal);
-      Navigator.of(context).pop();
+      if (meal != null) {
+        await widget.database.deleteMeal(meal);
+        Navigator.of(context).pop();
+      }
     } on FirebaseException catch (e) {
       showExceptionAlertDialog(
         context,

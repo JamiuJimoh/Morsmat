@@ -61,6 +61,7 @@ class AppTheme {
         color: _lightOnPrimaryColor,
       ),
     ),
+
     scaffoldBackgroundColor: _lightPrimaryColor,
 
     dialogTheme: DialogTheme(
