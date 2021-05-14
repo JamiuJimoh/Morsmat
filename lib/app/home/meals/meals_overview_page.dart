@@ -11,6 +11,7 @@ import 'list_items_builder.dart';
 import 'meals_list_tile.dart';
 
 class MealsOverviewPage extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ///////// HELPER METHOD ////////
 
   Future<void> _signOut(BuildContext context) async {
@@ -23,8 +24,9 @@ class MealsOverviewPage extends StatelessWidget {
   }
 
   Future<void> _confirmSignOut(BuildContext context) async {
+    //TODO IMPORTANT: fix signout  bug
     final didRequestSignOut = await showAlertDialog(
-      context: context,
+      context: _scaffoldKey.currentContext!,
       title: 'Logout',
       content: 'Are you sure that you want to logout?',
       cancelActionText: 'Cancel',
@@ -160,6 +162,7 @@ class MealsOverviewPage extends StatelessWidget {
         child: Icon(Icons.add),
         elevation: 1.0,
       ),
+      key: _scaffoldKey,
     );
   }
 }

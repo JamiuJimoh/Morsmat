@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common_widgets/custom_container.dart';
+import '../../../common_widgets/custom_container.dart';
 
 class CategoriesContainer extends CustomContainer {
   CategoriesContainer({required BuildContext context})
