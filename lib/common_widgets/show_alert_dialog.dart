@@ -13,7 +13,7 @@ Future<bool?> showAlertDialog({
   if (!Platform.isIOS) {
     return showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (context) => AlertDialog(
         title: Text(title),
         content: Text(content),
         actions: [
@@ -34,7 +34,7 @@ Future<bool?> showAlertDialog({
   }
   return showCupertinoDialog(
     context: context,
-    builder: (_) => CupertinoAlertDialog(
+    builder: (context) => CupertinoAlertDialog(
       title: Text(title),
       content: Text(content),
       actions: [

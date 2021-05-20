@@ -19,7 +19,7 @@ class EditMealPage extends StatefulWidget with MealValidators {
     final database = Provider.of<Database>(context, listen: false);
     final auth = Provider.of<AuthBase>(context, listen: false);
 
-    await Navigator.of(context).push(
+    await Navigator.of(context, rootNavigator: true).push(
       MaterialPageRoute(
         builder: (context) =>
             EditMealPage(database: database, auth: auth, meal: meal),
@@ -37,7 +37,7 @@ class _EditMealPageState extends State<EditMealPage> {
 
   var _isLoading = false;
 
-  var _initialValue = <String, dynamic?>{
+  var _initialValue = <String, dynamic>{
     'mealName': '',
     'description': '',
     'price': '',
@@ -151,10 +151,12 @@ class _EditMealPageState extends State<EditMealPage> {
         ],
       ),
       body: _buildContent(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.delete),
-        onPressed: () => _deleteMeal(context, widget.meal),
-      ),
+      floatingActionButton: widget.meal == null
+          ? null
+          : FloatingActionButton(
+              child: Icon(Icons.delete),
+              onPressed: () => _deleteMeal(context, widget.meal),
+            ),
     );
   }
 
