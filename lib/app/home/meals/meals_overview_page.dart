@@ -7,6 +7,7 @@ import '../../../services/database.dart';
 import '../../../services/auth.dart';
 import '../models/meal.dart';
 import 'list_items_builder.dart';
+import 'meal_categories/categories_list_view_builder.dart';
 import 'meals_list_tile.dart';
 
 class MealsOverviewPage extends StatelessWidget {
@@ -17,19 +18,47 @@ class MealsOverviewPage extends StatelessWidget {
     final auth = Provider.of<AuthBase>(context, listen: false);
     final user = auth.currentUser;
 
-    return StreamBuilder<List<Meal>>(
-      stream: database.mealsStream(),
-      builder: (context, snapshot) {
-        return ListItemsBuilder<Meal>(
-          snapshot: snapshot,
-          itemBuilder: (context, meal) => MealsListTile(
-            meal: meal,
-            onTap: meal.vendorId == user?.uid
-                ? () => EditMealPage.show(context, meal: meal)
-                : null,
-          ),
-        );
-      },
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Experience the food freedom!',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            const SizedBox(height: 10.0),
+            CategoriesListViewBuilder(),
+            const SizedBox(height: 30.0),
+            Text(
+              'Top Meals',
+              style: Theme.of(context).textTheme.bodyText1,
+              // textAlign: TextAlign.start,
+            ),
+            const SizedBox(height: 10.0),
+            // SizedBox(
+            //   height: 100.0,
+            //   child: StreamBuilder<List<Meal>>(
+            //     stream: database.mealsStream(),
+            //     builder: (context, snapshot) {
+            //       return ListItemsBuilder<Meal>(
+            //         snapshot: snapshot,
+            //         itemBuilder: (context, meal) => MealsListTile(
+            //           meal: meal,
+            //           onTap: meal.vendorId == user?.uid
+            //               ? () => EditMealPage.show(context, meal: meal)
+            //               : null,
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+
+      // child:
     );
     // return CustomScrollView(
     //   slivers: [

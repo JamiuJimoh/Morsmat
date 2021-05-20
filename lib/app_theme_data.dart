@@ -86,6 +86,7 @@ class AppTheme {
 
   static final TextStyle _lightHeadLine1TextStyle = TextStyle(
     fontSize: 30.0,
+    fontWeight: FontWeight.w600,
     color: _lightOnPrimaryColor,
   );
 
