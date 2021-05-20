@@ -14,3 +14,19 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Icons credit
+
+- Breakfast Icon made by Nhor Phai from www.flaticon.com
+
+- Lunch Icon made by Eucalyp from www.flaticon.com
+
+- Dinner Icon made by Freepik from www.flaticon.com
+
+- Pastry Icon made by Freepik from www.flaticon.com
+
+- Soup Icon made by Freepik from www.flaticon.com
+
+- Vegan Icon made by Freepik from www.flaticon.com
+
+- Halal Icon made by Surang from www.flaticon.com
