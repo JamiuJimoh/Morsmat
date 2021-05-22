@@ -48,16 +48,20 @@ class TopMeals extends StatelessWidget {
                         const SizedBox(height: 10.0),
                         Row(
                           children: [
-                            Text(
-                              meal.location,
-                              style: Theme.of(context).textTheme.subtitle1,
-                              softWrap: false,
-                              overflow: TextOverflow.ellipsis,
+                            SizedBox(
+                              width: 80.0,
+                              child: Text(
+                                meal.location,
+                                style: Theme.of(context).textTheme.subtitle1,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             Text(
-                              ' | ',
+                              '|',
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
+                            const SizedBox(width: 5.0),
                             Text(
                               '${meal.distance} kms',
                               style: Theme.of(context).textTheme.subtitle1,
