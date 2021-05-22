@@ -86,12 +86,15 @@ class AppTheme {
 
   static final TextStyle _lightHeadLine1TextStyle = TextStyle(
     fontSize: 30.0,
-    fontWeight: FontWeight.w600,
+    fontFamily: 'Merienda',
+    fontWeight: FontWeight.normal,
     color: _lightOnPrimaryColor,
   );
 
   static final TextStyle _lightHeadLine2TextStyle = TextStyle(
     fontSize: 25.0,
+    fontFamily: 'Merienda',
+    fontWeight: FontWeight.normal,
     color: _lightOnPrimaryColor,
   );
   static final TextStyle _lightBody1TextStyle = TextStyle(
@@ -103,7 +106,7 @@ class AppTheme {
     color: _lightOnPrimaryColor,
   );
   static final TextStyle _lightSubtitleTextStyle = TextStyle(
-    fontSize: 10.0,
+    fontSize: 13.0,
     color: _subtitleTextColor,
   );
 

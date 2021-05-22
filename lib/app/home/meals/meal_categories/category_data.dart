@@ -1,6 +1,5 @@
-import 'package:morsmat/app/home/meals/meal_categories/category_model.dart';
 
-import 'category_item_container.dart';
+import 'category_model.dart';
 
 class CategoryData {
   List<CategoryModel> _categoryItems = [
