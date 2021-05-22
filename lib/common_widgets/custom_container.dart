@@ -9,6 +9,7 @@ class CustomContainer extends StatelessWidget {
   final double? borderRadius;
   final EdgeInsetsGeometry? padding;
   final VoidCallback? onPressed;
+  final List<BoxShadow>? boxShadow;
 
   CustomContainer({
     required this.height,
@@ -18,6 +19,7 @@ class CustomContainer extends StatelessWidget {
     this.containerColor,
     this.padding,
     this.borderRadius: 20.0,
+    this.boxShadow,
     this.onPressed,
   });
 
@@ -39,6 +41,7 @@ class CustomContainer extends StatelessWidget {
               left: BorderSide(color: borderColor),
               right: BorderSide(color: borderColor),
             ),
+            boxShadow: boxShadow,
           ),
           child: child,
         ),

@@ -66,6 +66,12 @@ flutter:
       fonts:
         - asset: assets/fonts/IndieFlower-Regular.ttf
           weight: 400
+    - family: Merienda
+      fonts:
+        - asset: assets/fonts/Merienda-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Merienda-bold.ttf
+          weight: 700
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
