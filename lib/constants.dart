@@ -11,3 +11,4 @@ const kFacebookColor = Color(0xFF334D92);
 const kWhiteColor = Color(0xFFFFFFFF);
 
 const kTopMealsSizedBoxHeight = 290.0;
+const kFeaturedMealsSizedBoxHeight = 120.0;

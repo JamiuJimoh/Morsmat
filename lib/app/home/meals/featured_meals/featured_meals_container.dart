@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../common_widgets/custom_container.dart';
 import '../../../../constants.dart';
 
-class TopMealsContainer extends CustomContainer {
-  TopMealsContainer({
+class FeaturedMealsContainer extends CustomContainer {
+  FeaturedMealsContainer({
     required Color borderColor,
     required Widget child,
+    required double width,
   }) : super(
-          height: kTopMealsSizedBoxHeight,
-          width: 200.0,
+          height: kFeaturedMealsSizedBoxHeight,
+          width: width,
           containerColor: Colors.white,
           borderRadius: 12.0,
           borderColor: borderColor,

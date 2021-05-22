@@ -8,12 +8,14 @@ class ListItemsBuilder<T> extends StatelessWidget {
   final AsyncSnapshot<List<T>> snapshot;
   final ItemWidgetBuilder<T> itemBuilder;
   final Axis? scrollDirection;
+  final bool? shrinkWrap;
 
   const ListItemsBuilder({
     Key? key,
     required this.snapshot,
     required this.itemBuilder,
     this.scrollDirection: Axis.vertical,
+    this.shrinkWrap: false,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,8 @@ class ListItemsBuilder<T> extends StatelessWidget {
       itemCount: items.length,
       itemBuilder: (context, index) => itemBuilder(context, items[index]),
       scrollDirection: scrollDirection!,
+      shrinkWrap: shrinkWrap!,
+      physics: shrinkWrap! ? NeverScrollableScrollPhysics() : null,
     );
   }
 }

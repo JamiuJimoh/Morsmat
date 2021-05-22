@@ -8,6 +8,7 @@ import 'edit_meal_page.dart';
 import '../../../services/database.dart';
 import '../../../services/auth.dart';
 import '../models/meal.dart';
+import 'featured_meals/featured_meals.dart';
 import 'list_items_builder.dart';
 import 'meal_categories/categories_list_view_builder.dart';
 import 'meals_list_tile.dart';
@@ -23,7 +24,7 @@ class MealsOverviewPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 10.0, right: 15.0, left: 25.0),
+        padding: const EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,39 +44,63 @@ class MealsOverviewPage extends StatelessWidget {
             StreamBuilder<List<Meal>>(
               stream: database.mealsStream(),
               builder: (context, snapshot) {
-                return SizedBox(
-                  height: kTopMealsSizedBoxHeight,
-                  child: ListItemsBuilder<Meal>(
-                    snapshot: snapshot,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, meal) => TopMeals(
-                      meal: meal,
-                      // onTap: meal.vendorId == user?.uid
-                      //     ? () => EditMealPage.show(context, meal: meal)
-                      //     : null,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: kTopMealsSizedBoxHeight,
+                      child: ListItemsBuilder<Meal>(
+                        snapshot: snapshot,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, meal) => TopMeals(
+                          meal: meal,
+                          // onTap: meal.vendorId == user?.uid
+                          //     ? () => EditMealPage.show(context, meal: meal)
+                          //     : null,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 40.0),
+                    Text(
+                      'Featured Meals',
+                      style: Theme.of(context).textTheme.bodyText1,
+                      textAlign: TextAlign.left,
+                      // textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(height: 15.0),
+                    ListItemsBuilder<Meal>(
+                      snapshot: snapshot,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, meal) => FeaturedMeals(
+                        meal: meal,
+                        // onTap: meal.vendorId == user?.uid
+                        //     ? () => EditMealPage.show(context, meal: meal)
+                        //     : null,
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
-            // TopMeals()
-            // SizedBox(
-            //   height: 100.0,
-            //   child: StreamBuilder<List<Meal>>(
-            //     stream: database.mealsStream(),
-            //     builder: (context, snapshot) {
-            //       return ListItemsBuilder<Meal>(
-            //         snapshot: snapshot,
-            //         itemBuilder: (context, meal) => MealsListTile(
-            //           meal: meal,
-            //           onTap: meal.vendorId == user?.uid
-            //               ? () => EditMealPage.show(context, meal: meal)
-            //               : null,
-            //         ),
-            //       );
-            //     },
+
+            // StreamBuilder<List<Meal>>(
+            //   stream: database.mealsStream(),
+            //   builder: (context, snapshot) {
+            // return ListItemsBuilder<Meal>(
+            //   snapshot: snapshot,
+            //   shrinkWrap: true,
+            //   scrollDirection: Axis.vertical,
+            //   itemBuilder: (context, meal) => TopMeals(
+            //     meal: meal,
+            //     // onTap: meal.vendorId == user?.uid
+            //     //     ? () => EditMealPage.show(context, meal: meal)
+            //     //     : null,
             //   ),
+            // );
+            //   },
             // ),
+            // const SizedBox(height: 30.0),
           ],
         ),
       ),
