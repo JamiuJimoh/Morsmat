@@ -1,3 +1,6 @@
+
+import 'package:morsmat/app/home/meals/edit_meal/categories/category_model.dart';
+
 class Meal {
   final String mealId;
   final String vendorId;
@@ -10,6 +13,7 @@ class Meal {
   final int timeToPrep;
   final double distance;
   final String location;
+  List<CategoryModel> categories;
   bool isFavorite;
 
   Meal({
@@ -22,6 +26,7 @@ class Meal {
     required this.timeToPrep,
     required this.distance,
     required this.location,
+    this.categories: const [],
     this.ratings = 0,
     this.reviews = 0,
     this.isFavorite = false,
@@ -40,7 +45,7 @@ class Meal {
 
     return Meal(
       mealId: documentId,
-      vendorId:vendorId,
+      vendorId: vendorId,
       mealName: mealName,
       description: description,
       price: price,

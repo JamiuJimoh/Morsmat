@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:morsmat/app/home/meals/top_meals/top_meals_container.dart';
 import 'package:provider/provider.dart';
 
 // import 'categories_container.dart';
 import '../../../constants.dart';
-import 'edit_meal_page.dart';
 import '../../../services/database.dart';
 import '../../../services/auth.dart';
 import '../models/meal.dart';
-import 'featured_meals/featured_meals.dart';
 import 'list_items_builder.dart';
-import 'meal_categories/categories_list_view_builder.dart';
-import 'meals_list_tile.dart';
-import 'top_meals/top_meals.dart';
+import 'ui/featured_meals/featured_meals.dart';
+import 'ui/meal_categories/categories_list_view_builder.dart';
+import 'ui/top_meals/top_meals.dart';
 
 class MealsOverviewPage extends StatelessWidget {
   ///////// WIDGETS METHOD ////////

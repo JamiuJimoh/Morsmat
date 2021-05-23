@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/meal.dart';
+import '../../../models/meal.dart';
 import 'top_meals_container.dart';
 
 class TopMeals extends StatelessWidget {

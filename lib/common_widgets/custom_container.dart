@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
-  final double height;
-  final double width;
   final Widget child;
   final Color borderColor;
+  final double? height;
+  final double? width;
   final Color? containerColor;
   final double? borderRadius;
   final EdgeInsetsGeometry? padding;
@@ -12,12 +12,12 @@ class CustomContainer extends StatelessWidget {
   final List<BoxShadow>? boxShadow;
 
   CustomContainer({
-    required this.height,
-    required this.width,
     required this.child,
     required this.borderColor,
     this.containerColor,
     this.padding,
+     this.height:100.0,
+     this.width:100.0,
     this.borderRadius: 20.0,
     this.boxShadow,
     this.onPressed,

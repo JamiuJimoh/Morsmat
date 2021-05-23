@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:morsmat/app/home/meals/edit_meal/categories/category_checkbox_list_builder.dart';
 import 'package:provider/provider.dart';
 
-import '../models/meal.dart';
-import '../../../common_widgets/show_exception_alert_dialog.dart';
-import '../../../services/database.dart';
-import '../../../services/auth.dart';
+import '../../models/meal.dart';
+import '../../../../common_widgets/show_exception_alert_dialog.dart';
+import '../../../../services/database.dart';
+import '../../../../services/auth.dart';
 import 'edit_meal_text_form_field.dart';
-import 'validators.dart';
+import '../validators.dart';
 
 class EditMealPage extends StatefulWidget with MealValidators {
   EditMealPage({required this.database, required this.auth, this.meal});
@@ -238,6 +239,13 @@ class _EditMealPageState extends State<EditMealPage> {
                 ? null
                 : widget.invalidTimeToPrepErrorText,
       ),
+      const SizedBox(height: 25.0),
+      Text(
+        'Check the categories for this meal.',
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      const SizedBox(height: 10.0),
+      CategoryCheckboxListBuilder.create(context, meal:widget.meal),
     ];
   }
 }
