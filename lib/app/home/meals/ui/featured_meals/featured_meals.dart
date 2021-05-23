@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:morsmat/constants.dart';
 
-import '../../models/meal.dart';
+import '../../../models/meal.dart';
 import 'featured_meals_container.dart';
 
 class FeaturedMeals extends StatelessWidget {

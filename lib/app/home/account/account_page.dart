@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../meals/edit_meal/edit_meal_page.dart';
 import '../../../common_widgets/show_alert_dialog.dart';
 import '../../../services/auth.dart';
-import '../meals/edit_meal_page.dart';
 
 class AccountPage extends StatelessWidget {
   // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -18,7 +18,6 @@ class AccountPage extends StatelessWidget {
   }
 
   Future<void> _confirmSignOut(BuildContext context) async {
-    //TODO IMPORTANT: fix signout  bug
     final didRequestSignOut = await showAlertDialog(
       context: context,
       title: 'Logout',

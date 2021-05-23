@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common_widgets/custom_container.dart';
+import '../../../../../common_widgets/custom_container.dart';
+import '../../../../../constants.dart';
 
-class CategoryItemContainer extends CustomContainer {
-  CategoryItemContainer({
+class FeaturedMealsContainer extends CustomContainer {
+  FeaturedMealsContainer({
     required Color borderColor,
     required Widget child,
-    required VoidCallback onPressed,
+    required double width,
   }) : super(
-          height: 100.0,
-          width: 100.0,
-          onPressed: onPressed,
+          height: kFeaturedMealsSizedBoxHeight,
+          width: width,
           containerColor: Colors.white,
           borderRadius: 12.0,
           borderColor: borderColor,
