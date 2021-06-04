@@ -2,17 +2,22 @@ import 'package:flutter/cupertino.dart';
 
 class CategoryModel with ChangeNotifier {
   final String id;
-   String categName;
-  bool categValue;
+  final String categName;
+  bool? categValue;
 
   CategoryModel({
     required this.id,
     required this.categName,
-    required this.categValue,
+    this.categValue: false,
   });
 
   void toggleCategValue(bool value) {
     categValue = value;
     notifyListeners();
+  }
+
+  @override
+  String toString() {
+    return '$categName, $categValue';
   }
 }

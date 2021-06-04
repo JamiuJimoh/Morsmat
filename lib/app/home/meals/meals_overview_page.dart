@@ -17,7 +17,7 @@ class MealsOverviewPage extends StatelessWidget {
   Widget _buildContent(BuildContext context) {
     final database = Provider.of<Database>(context, listen: false);
     final auth = Provider.of<AuthBase>(context, listen: false);
-    final user = auth.currentUser;
+    // final user = auth.currentUser;
 
     return SingleChildScrollView(
       child: Padding(
@@ -185,6 +185,8 @@ class MealsOverviewPage extends StatelessWidget {
     //   ],
     // );
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {

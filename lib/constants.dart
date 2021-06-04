@@ -6,6 +6,7 @@ const kSurfaceColor = Color(0xFF323335); // onPrimary
 const kSurfaceVariantColor = Color(0xFF121315);
 const kSecondaryColor = Color(0xFFF54748);
 const kErrorColor = Color(0xFFF9AA33);
+const kStarColor = Color(0xFFF9D71C);
 
 const kFacebookColor = Color(0xFF334D92);
 const kWhiteColor = Color(0xFFFFFFFF);

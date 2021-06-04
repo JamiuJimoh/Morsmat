@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:morsmat/app/home/models/meal.dart';
 
 import 'category_model.dart';
 
@@ -7,57 +8,51 @@ class CategoryData extends ChangeNotifier {
     CategoryModel(
       id: 'Breakfast',
       categName: 'Breakfast',
-      categValue: false,
+      // categValue: false,
     ),
     CategoryModel(
       id: 'Lunch',
       categName: 'Lunch',
-      categValue: false,
+      // categValue: false,
     ),
     CategoryModel(
       id: 'Dinner',
       categName: 'Dinner',
-      categValue: false,
+      // categValue: false,
     ),
     CategoryModel(
       id: 'Pastry',
       categName: 'Pastry',
-      categValue: false,
+      // categValue: false,
     ),
     CategoryModel(
       id: 'Soup',
       categName: 'Soup',
-      categValue: false,
+      // categValue: false,
     ),
     CategoryModel(
       id: 'Vegan',
       categName: 'Vegan',
-      categValue: false,
+      // categValue: false,
     ),
     CategoryModel(
       id: 'Halal',
       categName: 'Halal',
-      categValue: false,
+      // categValue: false,
     ),
   ];
 
   List<CategoryModel> get categoryItems => [..._categoryItems];
 
-  void categValue(String id, value) {
-    _categoryItems.map((catItem) {
-      if (catItem.id == id) {
-        catItem.categValue = !catItem.categValue;
-        catItem.categName = 'selected';
+  void changeCategValue(String id, bool value) {
+    _categoryItems.map((item) {
+      if (item.id == id) {
+        item.categValue = value;
+        notifyListeners();
       }
-    }).toList();
-    notifyListeners();
+    });
   }
 
-  // int get itemLength => _categoryItems.length;
-
-  // String itemAssetName(int index) => categoryItems[index].assetName;
-
-  // String itemCategName(int index) => categoryItems[index].categName;
   @override
   String toString() {
     return _categoryItems.map((e) => e.categValue).toString();

@@ -60,9 +60,9 @@ class CategoryCheckboxListBuilder extends StatelessWidget {
             .map(
               (category) => CategoryCheckboxListTile(
                 categoryId: category.id,
+                categValue: category.categValue,
                 categoryName: category.categName,
-                categoryValue: category.categValue,
-                mealCategories: meal?.categories ?? null,
+                meal: meal,
               ),
             )
             .toList(),
