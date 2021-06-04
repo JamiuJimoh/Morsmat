@@ -1,7 +1,6 @@
+import 'package:flutter/cupertino.dart';
 
-import 'package:morsmat/app/home/meals/edit_meal/categories/category_model.dart';
-
-class Meal {
+class Meal with ChangeNotifier{
   final String mealId;
   final String vendorId;
   final String mealName;
@@ -13,7 +12,7 @@ class Meal {
   final int timeToPrep;
   final double distance;
   final String location;
-  List<CategoryModel> categories;
+  // List<CategoryModel?> categories;
   bool isFavorite;
 
   Meal({
@@ -26,7 +25,7 @@ class Meal {
     required this.timeToPrep,
     required this.distance,
     required this.location,
-    this.categories: const [],
+    // this.categories: const [],
     this.ratings = 0,
     this.reviews = 0,
     this.isFavorite = false,
@@ -39,6 +38,7 @@ class Meal {
     final double price = data['price'];
     final String imageUrl = data['imageUrl'];
 
+    // final categories = data['categories'];
     final int timeToPrep = data['timeToPrep'];
     final double distance = data['distance'];
     final String location = data['location'];
@@ -51,6 +51,7 @@ class Meal {
       price: price,
       imageUrl: imageUrl,
       timeToPrep: timeToPrep,
+      // categories: categories,
       distance: distance,
       location: location,
     );
@@ -65,8 +66,14 @@ class Meal {
       'price': price,
       'imageUrl': imageUrl,
       'timeToPrep': timeToPrep,
+      // 'categories': categories,
       'distance': distance,
       'location': location,
     };
+  }
+
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+    notifyListeners();
   }
 }

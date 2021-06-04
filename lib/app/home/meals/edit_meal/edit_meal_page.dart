@@ -245,7 +245,7 @@ class _EditMealPageState extends State<EditMealPage> {
         style: Theme.of(context).textTheme.bodyText1,
       ),
       const SizedBox(height: 10.0),
-      CategoryCheckboxListBuilder.create(context, meal:widget.meal),
+      CategoryCheckboxListBuilder.create(context, meal: widget.meal),
     ];
   }
 }
