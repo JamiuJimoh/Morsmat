@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
-      TabItem.meals: (_) => MealsOverviewPage(),
+      TabItem.meals: (_) => MealsOverviewPage.create(context),
       TabItem.orders: (_) => Container(),
       TabItem.account: (_) => AccountPage(),
     };

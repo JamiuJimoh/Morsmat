@@ -92,6 +92,7 @@ class _EditMealPageState extends State<EditMealPage> {
               'https://images.unsplash.com/photo-1592894869086-f828b161e90a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=500&q=40.png',
           timeToPrep: _initialValue['timeToPrep'],
           distance: 25.5,
+          // isFavorite: ,
           location: 'Stockholm',
         );
         await widget.database.setMeal(meal);

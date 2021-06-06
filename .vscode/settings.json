@@ -6,6 +6,7 @@
         "Scrollable",
         "autocorrect",
         "categ",
-        "fullscreen"
+        "fullscreen",
+        "rxdart"
     ]
 }
