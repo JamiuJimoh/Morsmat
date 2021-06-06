@@ -4,21 +4,35 @@ import 'package:provider/provider.dart';
 // import 'categories_container.dart';
 import '../../../constants.dart';
 import '../../../services/database.dart';
-import '../../../services/auth.dart';
 import '../models/meal.dart';
 import 'list_items_builder.dart';
+import 'meal_user_favorite.dart';
+import 'meals_list_view_model.dart';
+import 'meals_list_view_model.dart';
 import 'ui/featured_meals/featured_meals.dart';
 import 'ui/meal_categories/categories_list_view_builder.dart';
 import 'ui/top_meals/top_meals.dart';
 
 class MealsOverviewPage extends StatelessWidget {
+  final MealsListViewModel mealsListViewModel;
+
+  const MealsOverviewPage({Key? key, required this.mealsListViewModel})
+      : super(key: key);
+  static Widget create(BuildContext context) {
+    final database = Provider.of<Database>(context, listen: false);
+    return Provider<MealsListViewModel>(
+      create: (_) => MealsListViewModel(database: database),
+      child: Consumer<MealsListViewModel>(
+        builder: (_, mealsListViewModel, __) => MealsOverviewPage(
+          mealsListViewModel: mealsListViewModel,
+        ),
+      ),
+    );
+  }
+
   ///////// WIDGETS METHOD ////////
 
   Widget _buildContent(BuildContext context) {
-    final database = Provider.of<Database>(context, listen: false);
-    final auth = Provider.of<AuthBase>(context, listen: false);
-    // final user = auth.currentUser;
-
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0),
@@ -38,25 +52,25 @@ class MealsOverviewPage extends StatelessWidget {
               // textAlign: TextAlign.start,
             ),
             const SizedBox(height: 15.0),
-            StreamBuilder<List<Meal>>(
-              stream: database.mealsStream(),
+            StreamBuilder<List<MealUserFavorite>>(
+              stream: mealsListViewModel.allMealsStream,
               builder: (context, snapshot) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(
-                      height: kTopMealsSizedBoxHeight,
-                      child: ListItemsBuilder<Meal>(
-                        snapshot: snapshot,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, meal) => TopMeals(
-                          meal: meal,
-                          // onTap: meal.vendorId == user?.uid
-                          //     ? () => EditMealPage.show(context, meal: meal)
-                          //     : null,
-                        ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: kTopMealsSizedBoxHeight,
+                    //   child: ListItemsBuilder<MealUserFavorite>(
+                    //     snapshot: snapshot,
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemBuilder: (context, meal) => TopMeals(
+                    //       meal: meal,
+                    //       // onTap: meal.vendorId == user?.uid
+                    //       //     ? () => EditMealPage.show(context, meal: meal)
+                    //       //     : null,
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(height: 40.0),
                     Text(
                       'Featured Meals',
@@ -65,12 +79,12 @@ class MealsOverviewPage extends StatelessWidget {
                       // textAlign: TextAlign.start,
                     ),
                     const SizedBox(height: 15.0),
-                    ListItemsBuilder<Meal>(
+                    ListItemsBuilder<MealUserFavorite>(
                       snapshot: snapshot,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, meal) => FeaturedMeals(
-                        meal: meal,
+                        userFavoriteMeal:meal,
                         // onTap: meal.vendorId == user?.uid
                         //     ? () => EditMealPage.show(context, meal: meal)
                         //     : null,
@@ -185,8 +199,6 @@ class MealsOverviewPage extends StatelessWidget {
     //   ],
     // );
   }
-
- 
 
   @override
   Widget build(BuildContext context) {

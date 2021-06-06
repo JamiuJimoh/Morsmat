@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Meal with ChangeNotifier{
+class Meal with ChangeNotifier {
   final String mealId;
   final String vendorId;
   final String mealName;
@@ -56,6 +56,34 @@ class Meal with ChangeNotifier{
       location: location,
     );
   }
+
+  // factory Meal.createMeal(Meal meal, bool isMealFavorite) {
+  //   final String mealName = meal.mealName;
+  //   final String vendorId = meal.vendorId;
+  //   final String description = meal.description;
+  //   final double price = meal.price;
+  //   final String imageUrl = meal.imageUrl;
+
+  //   // final categories = meal.categories;
+  //   final bool isFavorite = isMealFavorite;
+  //   final int timeToPrep = meal.timeToPrep;
+  //   final double distance = meal.distance;
+  //   final String location = meal.location;
+
+  //   return Meal(
+  //     mealId: meal.mealId,
+  //     vendorId: vendorId,
+  //     mealName: mealName,
+  //     description: description,
+  //     price: price,
+  //     imageUrl: imageUrl,
+  //     timeToPrep: timeToPrep,
+  //     // categories: categories,
+  //     isFavorite: isFavorite,
+  //     distance: distance,
+  //     location: location,
+  //   );
+  // }
 
   Map<String, dynamic> toMap() {
     return {
