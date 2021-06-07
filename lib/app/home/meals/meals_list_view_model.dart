@@ -26,19 +26,6 @@ class MealsListViewModel {
         (userFavorite) => userFavorite?.mealId == meal.mealId,
         // orElse: () => null,
       );
-      // final favoriteMeal = favoriteMeals.firstWhere(
-      //   (favoriteMeal) {
-      //     print('==========================');
-      //     print('Favorite meal id : ${favoriteMeal.mealId}');
-      //     print('Meal id : ${meal.mealId}');
-      //     print('***************************');
-      //     print('${favoriteMeal.mealId} == ${meal.mealId}');
-      //     print('${favoriteMeal.mealId == meal.mealId}');
-      //     print('==========================');
-      //     return favoriteMeal.mealId == meal.mealId;
-      //   },
-      //   orElse: () => ()=> null,
-      // );
 
       return MealUserFavorite(
         meal: meal,

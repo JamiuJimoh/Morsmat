@@ -5,7 +5,6 @@ class FavoriteMeal {
   FavoriteMeal({required this.mealId, required this.isFavorite});
 
   factory FavoriteMeal.fromMap(Map<String, dynamic> data, String documentId) {
-    print(documentId);
 
     final mealId = documentId;
     final isFavorite = data['$mealId'];

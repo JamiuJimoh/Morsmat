@@ -10,7 +10,7 @@ abstract class Database {
   Future<void> deleteMeal(Meal meal);
   Stream<List<FavoriteMeal>> favoriteMealsStream();
   Future<void> setFavoriteMeal(FavoriteMeal favoriteMeal);
-  Future<void> deleteFavoriteMeal(Meal meal);
+  // Future<void> deleteFavoriteMeal(Meal meal);
 }
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
@@ -52,8 +52,8 @@ class FireStoreDatabase implements Database {
         data: favoriteMeal.toMap(),
       );
 
-  @override
-  Future<void> deleteFavoriteMeal(Meal meal) => _service.deleteData(
-        path: APIPath.favoriteMeal(uid: uid, mealId: meal.mealId),
-      );
+  // @override
+  // Future<void> deleteFavoriteMeal(Meal meal) => _service.deleteData(
+  //       path: APIPath.favoriteMeal(uid: uid, mealId: meal.mealId),
+  //     );
 }
