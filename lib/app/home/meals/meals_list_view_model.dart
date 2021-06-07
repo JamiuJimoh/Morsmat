@@ -1,4 +1,4 @@
-import 'package:morsmat/app/home/meals/meal_user_favorite.dart';
+import 'package:morsmat/app/home/models/meal_user_favorite.dart';
 import 'package:morsmat/app/home/models/favorite.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:collection/collection.dart';

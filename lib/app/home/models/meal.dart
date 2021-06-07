@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Meal with ChangeNotifier {
+class Meal {
   final String mealId;
   final String vendorId;
   final String mealName;
@@ -13,7 +13,6 @@ class Meal with ChangeNotifier {
   final double distance;
   final String location;
   // List<CategoryModel?> categories;
-  bool isFavorite;
 
   Meal({
     required this.mealId,
@@ -28,7 +27,6 @@ class Meal with ChangeNotifier {
     // this.categories: const [],
     this.ratings = 0,
     this.reviews = 0,
-    this.isFavorite = false,
   });
 
   factory Meal.fromMap(Map<String, dynamic> data, String documentId) {
@@ -100,8 +98,8 @@ class Meal with ChangeNotifier {
     };
   }
 
-  void toggleFavorite() {
-    isFavorite = !isFavorite;
-    notifyListeners();
-  }
+  // void toggleFavorite() {
+  //   isFavorite = !isFavorite;
+  //   notifyListeners();
+  // }
 }

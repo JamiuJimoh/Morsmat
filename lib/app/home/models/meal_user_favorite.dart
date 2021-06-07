@@ -1,4 +1,4 @@
-import '../models/meal.dart';
+import 'meal.dart';
 
 class MealUserFavorite {
   MealUserFavorite({
