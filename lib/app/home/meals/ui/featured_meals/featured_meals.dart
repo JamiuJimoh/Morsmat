@@ -6,8 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../services/database.dart';
 import '../../../../../constants.dart';
-import '../../../models/meal.dart';
-import '../../meal_user_favorite.dart';
+import '../../../models/meal_user_favorite.dart';
 import 'featured_meals_container.dart';
 
 class FeaturedMeals extends StatelessWidget {
@@ -16,18 +15,20 @@ class FeaturedMeals extends StatelessWidget {
 
   FeaturedMeals({Key? key, required this.userFavoriteMeal}) : super(key: key);
 
-  Future<void> _toggleFavorite(Database database, BuildContext context) async {
+  Future<void> _toggleFavorite(BuildContext context) async {
     // TODO: continue
     try {
+      final database = Provider.of<Database>(context, listen: false);
+
       final favoriteMeal = FavoriteMeal(
         mealId: userFavoriteMeal.meal.mealId,
         isFavorite: !userFavoriteMeal.isFavorite,
       );
-      if (userFavoriteMeal.isFavorite) {
-        await database.setFavoriteMeal(userFavoriteMeal.meal, favoriteMeal);
-      } else {
-        await database.deleteFavoriteMeal(userFavoriteMeal.meal);
-      }
+      // if (userFavoriteMeal.isFavorite) {
+      await database.setFavoriteMeal(favoriteMeal);
+      // } else {
+      //   await database.deleteFavoriteMeal(userFavoriteMeal.meal);
+      // }
     } on FirebaseException catch (e) {
       showExceptionAlertDialog(
         context,
@@ -39,8 +40,6 @@ class FeaturedMeals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<Database>(context, listen: false);
-
     return Column(
       children: [
         FeaturedMealsContainer(
@@ -144,7 +143,8 @@ class FeaturedMeals extends StatelessWidget {
                             onTap: () {
                               // meal.toggleFavorite();
                               print(userFavoriteMeal.isFavorite);
-                              _toggleFavorite(database, context);
+                              _toggleFavorite(context);
+                              print(userFavoriteMeal.isFavorite);
                             },
                           ),
                           // child:

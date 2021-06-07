@@ -8,7 +8,7 @@ class FavoriteMeal {
     print(documentId);
 
     final mealId = documentId;
-    final isFavorite = data['isFavorite'] ?? false;
+    final isFavorite = data['$mealId'];
     return FavoriteMeal(mealId: mealId, isFavorite: isFavorite);
   }
 

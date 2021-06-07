@@ -6,7 +6,7 @@ import '../../../constants.dart';
 import '../../../services/database.dart';
 import '../models/meal.dart';
 import 'list_items_builder.dart';
-import 'meal_user_favorite.dart';
+import '../models/meal_user_favorite.dart';
 import 'meals_list_view_model.dart';
 import 'meals_list_view_model.dart';
 import 'ui/featured_meals/featured_meals.dart';
