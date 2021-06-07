@@ -5,6 +5,7 @@ import '../models/favorite.dart';
 import '../../../common_widgets/show_exception_alert_dialog.dart';
 import '../../../services/database.dart';
 
+// toggleFavoriteMixin
 mixin ToggleFavoriteMixin {
   Future<void> toggleFavorite(
     BuildContext context, {
