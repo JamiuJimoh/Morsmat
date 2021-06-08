@@ -58,19 +58,19 @@ class MealsOverviewPage extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // SizedBox(
-                    //   height: kTopMealsSizedBoxHeight,
-                    //   child: ListItemsBuilder<MealUserFavorite>(
-                    //     snapshot: snapshot,
-                    //     scrollDirection: Axis.horizontal,
-                    //     itemBuilder: (context, meal) => TopMeals(
-                    //       meal: meal,
-                    //       // onTap: meal.vendorId == user?.uid
-                    //       //     ? () => EditMealPage.show(context, meal: meal)
-                    //       //     : null,
-                    //     ),
-                    //   ),
-                    // ),
+                    SizedBox(
+                      height: kTopMealsSizedBoxHeight,
+                      child: ListItemsBuilder<MealUserFavorite>(
+                        snapshot: snapshot,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, meal) => TopMeals(
+                          userFavoriteMeal: meal,
+                          // onTap: meal.vendorId == user?.uid
+                          //     ? () => EditMealPage.show(context, meal: meal)
+                          //     : null,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 40.0),
                     Text(
                       'Featured Meals',
@@ -78,13 +78,13 @@ class MealsOverviewPage extends StatelessWidget {
                       textAlign: TextAlign.left,
                       // textAlign: TextAlign.start,
                     ),
-                    const SizedBox(height: 15.0),
+                    const SizedBox(height: 20.0),
                     ListItemsBuilder<MealUserFavorite>(
                       snapshot: snapshot,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, meal) => FeaturedMeals(
-                        userFavoriteMeal:meal,
+                        userFavoriteMeal: meal,
                         // onTap: meal.vendorId == user?.uid
                         //     ? () => EditMealPage.show(context, meal: meal)
                         //     : null,
